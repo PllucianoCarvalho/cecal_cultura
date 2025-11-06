@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancestral Beats - Tambores do Recôncavo</title>
+    <meta name="description" content="Ancestral Beats — quiz interativo sobre tambores e ritmos afro-brasileiros.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+	:root {
+		--gold: #F2B33D;
+		--sunset: #F29727;
+		--fire: #F2811D;
+		--earth: #A64005;
+		--deep: #401201;
+		--dark: #0A0A0A;
+		--light: #FFF;
+		--glow: 0 0 20px rgba(242, 179, 61, 0.6);
+	}
+
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+
+	body{
+		font-family: 'Poppins', sans-serif;
+		background: radial-gradient(circle at center, #1a0d05 0%, #0f0703 100%);
+		color: var(--light);
+		min-height: 100vh;
+		overflow: auto;
+		position: relative;
+	}
+
+	#game-container{ width:92%; max-width:980px; margin:24px auto; }
+
+	/* wrapper 16:9 */
+	#game-wrapper{
+		width:100%;
+		aspect-ratio:16/9;
+		max-height:calc(90vh);
+		margin:0 auto;
+		position:relative;
+		border-radius:18px;
+		overflow:hidden;
+		background:transparent;
+	}
+
+	#particles{ position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+	.card{
+		position:absolute; inset:0;
+		background: rgba(10,5,2,0.95);
+		backdrop-filter: blur(10px);
+		border:1px solid rgba(242,179,61,0.12);
+		border-radius:18px;
+		padding:18px;
+		width:100%; height:100%;
+		box-shadow: 0 12px 30px rgba(0,0,0,0.7), var(--glow);
+		overflow:hidden;
+		display:flex; align-items:stretch; justify-content:center;
+	}
+
+	.card-inner{
+		width:100%; height:100%;
+		display:flex; flex-direction:column; gap:8px;
+		padding:8px;
+		transform-origin: top center;
+		transition: transform 120ms ease-out;
+	}
+
+	.card::before{
+		content:'';
+		position:absolute;
+		top:-50%; left:-50%;
+		width:200%; height:200%;
+		background: conic-gradient(from 0deg, transparent, var(--sunset), transparent);
+		opacity:0.08; pointer-events:none;
+	}
+
+	h1{
+		font-family: 'Bebas Neue', cursive;
+		font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+		line-height:1;
+		text-align:center;
+		color:var(--gold); /* fallback */
+		background: linear-gradient(45deg, var(--gold), var(--fire));
+		-webkit-background-clip: text;
+		-moz-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		margin-bottom:6px;
+		text-shadow: var(--glow);
+		animation: pulse 2s infinite;
+		letter-spacing:1px; text-transform:uppercase; font-weight:700;
+	}
+
+	@keyframes pulse{ 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.05);} }
+
+	.subtitle{ text-align:center; font-size:clamp(0.85rem,1.4vw,1rem); margin:0 0 14px; color:var(--gold); opacity:0.95; }
+
+	.progress-container{ display:flex; justify-content:center; align-items:center; margin:18px 0; }
+
+	.drum-circle{
+		/* tornar flex para centralizar conteúdo (mantém X igual e alinha no centro) */
+		width:64px;
+		height:64px;
+		background:var(--deep);
+		border-radius:50%;
+		border:5px solid var(--gold);
+		position:relative;
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		box-shadow: var(--glow), inset 0 0 20px rgba(0,0,0,0.45);
+	}
+
+	.drum-fill{ position:absolute; bottom:0; left:0; width:100%; background:var(--fire); height:0%; border-radius:50%; transition:height .6s; box-shadow:0 0 12px var(--fire); }
+
+	.progress-text{
+		/* remove positioning absoluto */
+		position:relative;
+		left:auto;
+		top:auto;
+		transform:none;
+		font-weight:800;
+		font-size:0.95rem;
+		color:var(--light);
+		text-align:center;
+	}
+
+	.score-badge{
+		position:absolute; top:12px; right:12px;
+		background: linear-gradient(135deg, var(--earth) 0%, #7a2b00 100%);
+		color:var(--light);
+		padding:8px 12px; border-radius:999px; font-weight:800; font-size:.95rem;
+		box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+	}
+
+	#question{
+		margin:14px 0; padding:12px; min-height:64px;
+		background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+		border-left:6px solid rgba(242,147,39,0.95);
+		border-radius:12px; color:var(--gold); text-align:center; display:flex; align-items:center; justify-content:center;
+		font-size:1.1rem;
+	}
+
+	.options{ display:grid; gap:10px; margin:12px 0; }
+
+	.option-btn{
+		background: rgba(255,255,255,0.03);
+		border:2px solid rgba(242,179,61,0.22);
+		padding:10px; border-radius:10px; color:var(--light);
+		font-weight:600; cursor:pointer; transition:transform .18s, box-shadow .18s, background .18s;
+		text-align:left;
+	}
+	.option-btn:hover:not(:disabled){ transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,0.45); }
+
+	.option-btn.correct{ background: linear-gradient(45deg,#39FF14,#00C853); color:#000; font-weight:800; }
+	.option-btn.wrong{ background: linear-gradient(45deg,#FF2D00,#C62828); color:#fff; }
+
+	.lifelines{ display:flex; justify-content:center; gap:8px; margin:12px 0; flex-wrap:wrap; }
+	.lifeline-btn{ background: linear-gradient(45deg, var(--gold), var(--sunset)); color:var(--deep); border:none; padding:10px 14px; border-radius:999px; font-weight:800; box-shadow:0 6px 18px rgba(242,179,61,0.12); }
+
+	/* Estilização dos botões de navegação */
+	#prev-btn, #next-btn {
+		/* mesma paleta / gradiente das lifelines */
+		background: linear-gradient(45deg, var(--gold), var(--sunset));
+		color: var(--deep);
+		/* aparência de pílula como as lifelines */
+		border: none;
+		border-radius: 999px;
+		padding: 10px 14px;
+		font-weight: 800;
+		font-size: 1rem;
+		cursor: pointer;
+		min-width: 96px;
+		box-shadow: 0 8px 20px rgba(242,179,61,0.25);
+		transition: transform 0.18s ease, box-shadow 0.18s ease;
+		/* esconder por padrão — o JS exibirá quando necessário */
+		display: none;
+	}
+
+	#prev-btn:hover:not(:disabled), #next-btn:hover:not(:disabled) {
+		transform: translateY(-4px) scale(1.03);
+		box-shadow: 0 12px 30px rgba(242,179,61,0.35);
+	}
+
+	#hint-display{
+		display:none; margin:12px 0; padding:10px; border-radius:10px;
+		background: rgba(242,179,61,0.06); border:1px dashed rgba(242,179,61,0.28); color:var(--gold); font-style:italic;
+	}
+
+	.start-btn, .restart-btn{
+		background: linear-gradient(180deg, var(--gold), var(--fire));
+		color: var(--deep); border:none; padding:12px 28px; border-radius:40px; font-weight:800; font-size:1.05rem;
+		box-shadow: 0 12px 30px rgba(242,179,61,0.12);
+	}
+
+	/* confetti reduzido e suave */
+	.card .confetti-container{ position:absolute; inset:0; pointer-events:none; z-index:25; overflow:visible; }
+	.confetti{ width:8px; height:8px; border-radius:2px; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+
+	/* Estilização do botão de retorno (back-link) */
+	.back-link {
+		position: fixed;
+		top: 18px;
+		left: 18px;
+		z-index: 120;
+		display: inline-block;
+		background: linear-gradient(45deg, var(--gold), var(--sunset));
+		color: var(--deep);
+		text-decoration: none;
+		padding: 10px 14px;
+		border-radius: 999px;
+		font-weight: 800;
+		font-size: 0.95rem;
+		box-shadow: 0 8px 20px rgba(242,179,61,0.25);
+		transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+	}
+
+	/* Hover / focus */
+	.back-link:hover,
+	.back-link:focus {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 30px rgba(242,179,61,0.35);
+		opacity: 1;
+	}
+
+	/* versão compacta em telas pequenas */
+	@media (max-width:480px) {
+		.back-link {
+			top: 12px;
+			left: 12px;
+			padding: 8px 12px;
+			font-size: 0.9rem;
+		}
+	}
+
+	@media (max-width:480px){
+		#game-container{ width:96%; }
+		h1{ font-size:2.2rem; }
+		.option-btn{ font-size:0.95rem; padding:8px; }
+		.start-btn, .restart-btn{ padding:10px 20px; font-size:1rem; }
+	}
+
+	/* Centralizar conteúdo da tela inicial dentro da box */
+	#start-screen {
+		display: flex;
+		flex-direction: column;
+		justify-content: center; /* centraliza verticalmente */
+		align-items: center;     /* centraliza horizontalmente */
+		height: 100%;            /* ocupa toda a altura disponível do card-inner */
+		gap: 8px;                /* espaçamento entre título/subtítulo/botão */
+		padding: 8px;            /* evita colagem em bordas em telas pequenas */
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+    <a class="back-link" href="index.html">← Voltar</a>
+
+    <!-- ajustado: wrapper 16:9 dentro do container -->
+    <div id="game-container" aria-live="polite">
+        <div id="game-wrapper">
+            <canvas id="particles" aria-hidden="true"></canvas>
+
+            <div class="card">
+                <div class="confetti-container" aria-hidden="true"></div>
+
+                <!-- ADDED: card-inner inicia -->
+                <div class="card-inner">
+                    <!-- Tela Inicial -->
+                    <div id="start-screen">
+                        <h1>ANCESTRAL BEATS</h1>
+                        <p class="subtitle">Tambores do Recôncavo • 20 Perguntas Épicas</p>
+                        <button id="start-button" class="start-btn">TOCAR OS TAMBORES</button>
+                    </div>
+
+                    <!-- Quiz -->
+                    <div id="quiz-screen" style="display:none;">
+                        <div class="score-badge">Pontos: <span id="score">0</span></div>
+
+                        <div class="progress-container">
+                            <div class="drum-circle">
+                                <div class="drum-fill" id="drum-fill"></div>
+                                <div class="progress-text"><span id="current-q">1</span>/20</div>
+                            </div>
+                        </div>
+
+                        <div id="question"></div>
+                        <div id="hint-display"></div>
+
+                        <div class="options" id="options"></div>
+
+                        <div id="feedback"></div>
+
+                        <div class="lifelines">
+                            <button id="hint-btn" class="lifeline-btn">Dica</button>
+                            <button id="fifty-btn" class="lifeline-btn">50:50</button>
+                            <button id="skip-btn" class="lifeline-btn">Pular</button>
+                        </div>
+
+                        <!-- Botões de navegação -->
+                        <div class="nav-buttons">
+                            <button id="prev-btn">ANTERIOR</button>
+                            <button id="next-btn">PRÓXIMA</button>
+                        </div>
+                    </div>
+
+                    <!-- Tela Final -->
+                    <div id="end-screen" style="display:none;">
+                        <h1>BATIDA FINAL!</h1>
+                        <p style="font-size:2.5rem; margin:30px 0; color:var(--gold);">Pontuação: <strong><span id="final-score">0</span>/20</strong></p>
+                        <p class="final-message" id="final-message"></p>
+                        <button class="restart-btn">TOCAR NOVAMENTE</button>
+                    </div>
+                </div>
+                <!-- ADDED: card-inner termina -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "O berimbau comanda a roda de capoeira. Qual som caracteriza o 'jogo lento'?", options: ["Toque de Angola", "São Bento Grande", "Amazonas", "Idalina"], correct: 0, hint: "É o mais ancestral, com ritmo calmo e filosófico." },
+            { question: "No candomblé, qual atabaque tem a voz mais grave?", options: ["Rum", "Rumpi", "Lê", "Ilú"], correct: 0, hint: "É o 'pai' dos tambores, com som profundo como trovão." },
+            { question: "A cuíca 'chora' no samba. Qual técnica cria esse efeito?", options: ["Batida com baqueta", "Esfregar vareta com pano úmido", "Sopro interno", "Dedos nas bordas"], correct: 1, hint: "O som vem do atrito interno, como uma voz humana." },
+            { question: "O agogô de duas campanas marca qual célula rítmica no samba?", options: ["Teleco-teco", "Swing", "Partido alto", "Samba enredo"], correct: 0, hint: "É o 'telefone' da bateria: um som alto + um grave." },
+            { question: "O afoxé é sagrado no ijexá. Qual orixá ele saúda?", options: ["Oxum", "Ogum", "Oxalá", "Iemanjá"], correct: 2, hint: "É o pai da criação, vestido de branco, trazendo paz." },
+            { question: "O surdo de primeira é o coração da bateria. Qual sua função?", options: ["Marcar o tempo forte", "Fazer viradas", "Swing", "Contra-tempo"], correct: 0, hint: "É o 'bum-bum' que faz o pé andar na avenida." },
+            { question: "O pandeiro brasileiro tem platinelas. Quantos pares normalmente?", options: ["3", "5", "7", "9"], correct: 1, hint: "Mestre Jorjão usava 5 pares para choro e samba." },
+            { question: "A alfaia do maracatu nação tem qual diâmetro médio?", options: ["30cm", "50cm", "70cm", "90cm"], correct: 2, hint: "É um tambor gigante, carregado nos ombros do mestre." },
+            { question: "O caxixi é trançado com qual material natural?", options: ["Palha de buriti", "Fibra de coco", "Palha de carnaúba", "Vime sintético"], correct: 0, hint: "Vem da Amazônia, com sementes dentro que chacoalham." },
+            { question: "O reco-reco tem sulcos. Qual ferramenta tradicional os faz?", options: ["Faca de ferro", "Prego aquecido", "Arame de aço", "Lixa manual"], correct: 1, hint: "O calor do prego cria ranhuras perfeitas para o som." },
+            { question: "Qual instrumento é feito de cabaça, corda e caxixi na capoeira?", options: ["Atabaque", "Berimbau", "Pandeiro", "Agogô"], correct: 1, hint: "É o 'arco musical' que rege o jogo." },
+            { question: "No maracatu rural, qual instrumento é tocado com baquetas de madeira?", options: ["Caixa", "Gonguê", "Tarumba", "Trombone"], correct: 2, hint: "É o tambor gigante que ecoa como trovão." },
+            { question: "O ganzá é um chocalho de metal. Em qual ritmo ele é essencial?", options: ["Samba", "Forró", "Axé", "Pagode baiano"], correct: 0, hint: "Ele marca o 'chic-chic' da bateria carioca." },
+            { question: "Qual tambor é usado no jongo e tem origem no congado?", options: ["Tambu", "Ilú", "Congo", "Angoma"], correct: 0, hint: "É tocado com as mãos e fala com os ancestrais." },
+            { question: "O xequerê é um chocalho africano. Qual é seu nome iorubá?", options: ["Sekere", "Agogô", "Ganzá", "Caxixi"], correct: 0, hint: "É feito de cabaça com rede de contas." },
+            { question: "No samba de roda do Recôncavo, qual instrumento feminino é destaque?", options: ["Viola machete", "Pandeiro", "Cuíca", "Berimbau"], correct: 0, hint: "É uma pequena viola de 5 cordas duplas." },
+            { question: "O tambor de crioula do Maranhão é feito de qual madeira?", options: ["Jacarandá", "Cumaru", "Ipê", "Jatobá"], correct: 1, hint: "É resistente e ressoa forte nas caixeiras." },
+            { question: "Qual instrumento marca o 'repique' no samba-enredo?", options: ["Repique de mão", "Tamborim", "Caixa", "Surdo de terceira"], correct: 0, hint: "É tocado com uma mão e baqueta na outra." },
+            { question: "O caracaxá é outro nome para qual instrumento?", options: ["Reco-reco", "Ganzá", "Agogô", "Cuíca"], correct: 0, hint: "É o 'raspa-raspa' que dá textura ao samba." },
+            { question: "No bumba-meu-boi do Maranhão, qual instrumento é feito de lata?", options: ["Matraca", "Caixa-do-divino", "Pandeiro", "Zabumba"], correct: 0, hint: "É girado e faz 'crec-crec' no auto do boi." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        let lifelines = { hint: false, fifty: false, skip: false };
+        let optionButtons = [];
+
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const endScreen = document.getElementById('end-screen');
+        const startButton = document.getElementById('start-button');
+        const prevButton = document.getElementById('prev-btn');
+        const nextButton = document.getElementById('next-btn');
+        const hintBtn = document.getElementById('hint-btn');
+        const fiftyBtn = document.getElementById('fifty-btn');
+        const skipBtn = document.getElementById('skip-btn');
+
+        // atualiza referências caso mudadas
+        const wrapper = document.getElementById('game-wrapper');
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        const cardInner = document.querySelector('.card-inner');
+
+        function resizeCanvasToWrapper() {
+            const rect = wrapper.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+            canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        // escala o conteúdo para caber sem scrollbar
+        function fitScale() {
+            if (!cardInner || !wrapper) return;
+            // medir após repaints
+            requestAnimationFrame(() => {
+                const wrapperH = wrapper.clientHeight;
+                const wrapperW = wrapper.clientWidth;
+                // altura natural do conteúdo (sem escala)
+                cardInner.style.transform = 'scale(1)';
+                const contentH = cardInner.scrollHeight;
+                const contentW = cardInner.scrollWidth;
+                // calcular escala necessária tanto em altura quanto largura
+                const scaleH = wrapperH / contentH;
+                const scaleW = wrapperW / contentW;
+                let scale = Math.min(scaleH, scaleW, 1);
+                // limitar escala mínima para evitar texto ilegível (0.6)
+                scale = Math.max(scale, 0.6);
+                cardInner.style.transform = `scale(${scale})`;
+                // opcional: ajustar transform-origin conforme rotação/estética
+                cardInner.style.transformOrigin = 'top center';
+            });
+        }
+
+        // inicializa canvas no tamanho do wrapper
+        resizeCanvasToWrapper();
+
+        // partículas localizadas dentro do wrapper (coordenadas baseadas no rect)
+        let particles = [];
+        function createParticle() {
+            const rect = wrapper.getBoundingClientRect();
+            return {
+                x: Math.random() * rect.width,
+                y: -10,
+                speed: Math.random() * 2 + 0.6,
+                size: Math.random() * 3 + 1,
+                color: ['#F2B33D', '#F29727', '#F2811D'][Math.floor(Math.random() * 3)],
+                containerHeight: rect.height
+            };
+        }
+
+        function initParticles(count = 40) {
+            particles = [];
+            for (let i = 0; i < count; i++) particles.push(createParticle());
+        }
+
+        initParticles();
+
+        function animateParticles() {
+            const rect = wrapper.getBoundingClientRect();
+            ctx.clearRect(0, 0, rect.width, rect.height);
+            particles.forEach((p, i) => {
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.y += p.speed;
+                p.x += Math.sin(p.y * 0.01) * 0.4;
+                if (p.y > rect.height + 10) particles[i] = createParticle();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvasToWrapper();
+            initParticles(Math.max(20, Math.round(wrapper.clientWidth / 20)));
+            fitScale();
+        });
+
+        function startGame() {
+            startScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            lifelines = { hint: false, fifty: false, skip: false };
+            document.getElementById('score').innerText = score;
+            safeLoadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('hint-display').style.display = 'none';
+            document.getElementById('feedback').innerHTML = '';
+            prevButton.style.display = currentQuestion > 0 ? 'block' : 'none';
+            nextButton.style.display = 'block';
+
+            const q = questions[currentQuestion];
+            document.getElementById('current-q').innerText = currentQuestion + 1;
+            document.getElementById('question').innerText = q.question;
+
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('drum-fill').style.height = progress + '%';
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            optionButtons = [];
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<strong>${String.fromCharCode(65 + i)})</strong> ${opt}`;
+                btn.onclick = () => selectAnswer(i);
+                optionsDiv.appendChild(btn);
+                optionButtons.push(btn);
+            });
+
+            hintBtn.disabled = lifelines.hint;
+            fiftyBtn.disabled = lifelines.fifty;
+            skipBtn.disabled = lifelines.skip;
+        }
+
+        function selectAnswer(selected) {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentQuestion];
+            const correctIdx = q.correct;
+
+            optionButtons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === correctIdx) btn.classList.add('correct');
+                if (i === selected && i !== correctIdx) btn.classList.add('wrong');
+            });
+
+            let feedback = '';
+            if (selected === correctIdx) {
+                score++;
+                feedback = 'AXÉ! ACERTOU!';
+                document.getElementById('score').innerText = score;
+                triggerConfetti();
+            } else {
+                feedback = `Errou! A correta é <strong>${String.fromCharCode(65 + correctIdx)}) ${q.options[correctIdx]}</strong>`;
+            }
+
+            document.getElementById('feedback').innerHTML = feedback;
+        }
+
+        hintBtn.onclick = function() {
+            if (lifelines.hint || answered) return;
+            lifelines.hint = true;
+            const hint = questions[currentQuestion].hint;
+            const el = document.getElementById('hint-display');
+            el.innerText = 'Dica ' + hint;
+            el.style.display = 'block';
+            this.disabled = true;
+        };
+
+        fiftyBtn.onclick = function() {
+            if (lifelines.fifty || answered) return;
+            lifelines.fifty = true;
+            const correctIdx = questions[currentQuestion].correct;
+            let wrongs = [0,1,2,3].filter(i => i !== correctIdx);
+            wrongs.sort(() => 0.5 - Math.random()).slice(0, 2).forEach(idx => {
+                optionButtons[idx].style.opacity = '0.3';
+                optionButtons[idx].style.textDecoration = 'line-through';
+                optionButtons[idx].disabled = true;
+            });
+            this.disabled = true;
+        };
+
+        skipBtn.onclick = function() {
+            if (lifelines.skip || answered) return;
+            lifelines.skip = true;
+            answered = true;
+            document.getElementById('feedback').innerHTML = 'Questão pulada (0 pontos)';
+            nextButton.style.display = 'block';
+            this.disabled = true;
+        };
+
+        prevButton.onclick = function() {
+            if (currentQuestion <= 0) return;
+            currentQuestion--;
+            loadQuestion();
+        };
+
+        nextButton.onclick = function() {
+            if (!answered) {
+                alert("Responda a pergunta antes de avançar!");
+                return;
+            }
+            currentQuestion++;
+            if (currentQuestion >= questions.length) {
+                endGame();
+            } else {
+                loadQuestion();
+            }
+        };
+
+        function endGame() {
+            quizScreen.style.display = 'none';
+            endScreen.style.display = 'block';
+            document.getElementById('final-score').innerText = score;
+
+            let message = '';
+            if (score === 20) message = 'MESTRE SUPREMO DOS TAMBORES! A ancestralidade vibra com você!';
+            else if (score >= 16) message = 'ORIXÁ DO RITMO! Seus ancestrais dançam na avenida!';
+            else if (score >= 12) message = 'GUARDIÃO DO AXÉ! Continue estudando os tambores sagrados.';
+            else if (score >= 8) message = 'BOM COMEÇO! Jogue novamente e sinta a batida!';
+            else message = 'Valeu, irmão! Cada erro é um aprendizado ancestral.';
+
+            document.getElementById('final-message').innerText = message;
+            triggerConfetti(150);
+        }
+
+        /* filepath: /workspaces/site_feirao/ancestral-beats.html */
+        /* Substituir função existente: triggerConfetti */
+        function triggerConfetti(count = 50) {
+            const host = document.querySelector('.card .confetti-container') || wrapper;
+            const hostRect = host.getBoundingClientRect();
+            const maxDuration = 2200;
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    // tamanho e cor variados mantendo paleta
+                    const size = Math.floor(Math.random() * 8) + 6; // 6..13px
+                    confetti.style.width = size + 'px';
+                    confetti.style.height = Math.floor(size * 0.6) + 'px';
+                    confetti.style.left = (Math.random() * 92 + 4) + '%';
+                    confetti.style.top = (-5 - Math.random()*10) + '%';
+                    confetti.style.background = ['#F2B33D', '#F29727', '#F2811D'][Math.floor(Math.random() * 3)];
+                    confetti.style.position = 'absolute';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = 50;
+                    host.appendChild(confetti);
+
+                    // usar Web Animations API para animar relativo ao host
+                    const fallDistance = hostRect.height + Math.random() * 80;
+                    const rotate = Math.floor(Math.random() * 720);
+                    const dur = Math.floor(Math.random() * 900) + 1100; // 1100..2000ms
+
+                    const anim = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${fallDistance}px) rotate(${rotate}deg)`, opacity: 0 }
+                    ], {
+                        duration: dur,
+                        easing: 'cubic-bezier(.2,.6,.2,1)'
+                    });
+
+                    anim.onfinish = () => confetti.remove();
+                }, i * 18);
+            }
+        }
+
+        // chamadas de fitScale em pontos chave
+        function safeLoadQuestion() {
+            loadQuestion();
+            fitScale();
+        }
+
+        // substituir chamadas existentes a loadQuestion/startGame para garantir fit
+        function startGame() {
+            startScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            lifelines = { hint: false, fifty: false, skip: false };
+            document.getElementById('score').innerText = score;
+            safeLoadQuestion();
+        }
+
+        // substituir chamadas internas que avançam para next question
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('hint-display').style.display = 'none';
+            document.getElementById('feedback').innerHTML = '';
+            prevButton.style.display = currentQuestion > 0 ? 'block' : 'none';
+            nextButton.style.display = 'block';
+
+            const q = questions[currentQuestion];
+            document.getElementById('current-q').innerText = currentQuestion + 1;
+            document.getElementById('question').innerText = q.question;
+
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('drum-fill').style.height = progress + '%';
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            optionButtons = [];
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<strong>${String.fromCharCode(65 + i)})</strong> ${opt}`;
+                btn.onclick = () => selectAnswer(i);
+                optionsDiv.appendChild(btn);
+                optionButtons.push(btn);
+            });
+
+            hintBtn.disabled = lifelines.hint;
+            fiftyBtn.disabled = lifelines.fifty;
+            skipBtn.disabled = lifelines.skip;
+        }
+
+        // garantir readequação após mudanças e resize
+        window.addEventListener('resize', () => {
+            resizeCanvasToWrapper();
+            initParticles(Math.max(20, Math.round(wrapper.clientWidth / 20)));
+            fitScale();
+        });
+
+        // chamar fitScale após animações, mudanças de DOM e quando o usuário inicia
+        document.addEventListener('DOMContentLoaded', () => {
+            resizeCanvasToWrapper();
+            initParticles();
+            fitScale();
+        });
+
+        // no final do selectAnswer/skip/endGame devemos readequar visual (se necessário)
+        // adicionar chamadas pontuais:
+        const originalSelectAnswer = selectAnswer;
+        selectAnswer = function(selected) {
+            originalSelectAnswer(selected);
+            fitScale();
+        };
+
+        const originalSkip = skipBtn.onclick;
+        skipBtn.onclick = function() {
+            if (typeof originalSkip === 'function') originalSkip();
+            fitScale();
+        };
+
+        const originalEndGame = endGame;
+        endGame = function() {
+            originalEndGame();
+            fitScale();
+        };
+
+        // assegurar que botões de início e restart chamem fitScale
+        startButton.addEventListener('click', () => {
+            startGame();
+            fitScale();
+        });
+        document.querySelector('.restart-btn').addEventListener('click', () => {
+            location.reload();
+        });
+
+        // ...existing code restante (partículas, lógica do jogo) ...
+    </script>
+</body>
+</html>
