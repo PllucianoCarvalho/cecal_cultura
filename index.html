@@ -14,6 +14,8 @@
     <header>
         <div class="banner">
             <figure>
+                <!-- Adicionado: logo da escola -->
+                <img class="logo" src="assets/images/logo_escola.png" alt="Logo da escola" width="140" height="140" loading="lazy">
                 <picture>
                     <!-- fontes alternativas (WebP) e fallback -->
                     <source srcset="https://postcolonialist.com/wp-content/uploads/2014/03/Brasileiros2.webp" type="image/webp">
@@ -35,10 +37,32 @@
     
     <main id="main">
         <h1>Bem-vindo ao Site sobre Folclore Brasileiro</h1>
-        <p>A chegada das caravelas portuguesas em 1500 marcou o início de uma era transformadora no que viria a se tornar o Brasil. Liderados por Pedro Álvares Cabral, os europeus encontraram uma terra habitada por povos indígenas diversos, como os Tupi, Guarani e muitos outros, que possuíam tradições ricas, línguas e crenças espirituais profundamente conectadas à natureza. As interações iniciais foram uma mistura de curiosidade, comércio e conflito, preparando o terreno para séculos de intercâmbio cultural.</p>
-        <p>Com o avanço da colonização, os portugueses trouxeram escravos africanos para trabalhar em plantações de açúcar e minas, a partir da década de 1530. Milhões de africanos de várias regiões, incluindo Angola, Congo e Benin, foram trazidos à força para o Brasil, levando consigo suas línguas, religiões, músicas e costumes. Essa trágica história de escravidão levou a uma profunda mistura de raças e culturas, conhecida como miscigenação, que é um pilar da identidade brasileira.</p>
-        <p>A fusão de elementos indígenas, africanos e portugueses deu origem a um folclore brasileiro único. Das lendas indígenas do Curupira, o protetor das florestas, às divindades africanas influenciadas no Candomblé, e contos europeus adaptados ao contexto local, o folclore brasileiro é uma tapeçaria vibrante. Figuras como o Saci-Pererê, um menino travesso de uma perna só com origens africanas e indígenas, e o festival Bumba Meu Boi, misturando as três influências, exemplificam essa mistura.</p>
-        <p>Hoje, esse mosaico cultural é celebrado em carnavais, músicas como samba e bossa nova, culinária e vida cotidiana. A diversidade do Brasil é sua força, um testemunho vivo da resiliência e criatividade nascidas de encontros históricos. Explore mais sobre essa rica herança em nosso site.</p>
+
+        <!-- Introdução enxuta -->
+        <p class="lead">Explore marcos históricos e a influência do patrimônio afro‑brasileiro e do folclore afro no Brasil. Clique em uma data para ver o acontecimento.</p>
+
+        <!-- Linha do tempo: barra de rolagem horizontal com anos -->
+        <section class="timeline" aria-label="Linha do tempo histórica">
+            <div class="timeline-track" role="listbox" aria-label="Anos importantes">
+                <!-- cada item carrega data-year e data-title; o texto detalhado aparece no painel -->
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1500" data-title="Chegada dos portugueses">1500</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1530" data-title="Início do tráfico de africanos">1530</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1808" data-title="Formação de terreiros e práticas afro">1808</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1888" data-title="Abolição e trajetórias Afro-brasileiras">1888</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1930" data-title="Samba e cultura urbana de matriz africana">1930</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1960" data-title="Capoeira, música e resistência cultural">1960</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1988" data-title="Reconhecimento dos direitos culturais">1988</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2000" data-title="Valorização do patrimônio imaterial">2000</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2010" data-title="Movimentos por memória e identidade">2010</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2020" data-title="Ativismo cultural e resistência digital">2020</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2030" data-title="Expectativas de reparação e preservação">2030</button>
+            </div>
+
+            <div class="timeline-panel" aria-live="polite" aria-atomic="true">
+                <h3 id="timeline-title">Selecione uma data</h3>
+                <p id="timeline-desc">Clique em uma data na linha do tempo para ver o acontecimento correspondente.</p>
+            </div>
+        </section>
     </main>
     
     <!-- Placeholders para outras seções -->
@@ -75,12 +99,71 @@
     </footer>
 
     <script>
-    // Atualiza o ano no rodapé e fornece um feedback simples ao submeter o formulário (front-end)
+    // Atualiza o ano no rodapé
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Timeline: dados dos acontecimentos (texto curto)
+    const TIMELINE_DATA = {
+        "1500": "Contato inicial europeu que cria o cenário histórico onde, posteriormente, o tráfico e a presença africana moldariam grande parte da cultura popular.",
+        "1530": "Início sistemático do tráfico transatlântico — chegada forçada de milhões de africanos cujas línguas, crenças e costumes alimentaram o folclore e as tradições brasileiras.",
+        "1808": "Períodos de formação dos primeiros terreiros e síncretismos religiosos que dariam origem a manifestações de matriz africana, como o Candomblé e ritualísticas populares.",
+        "1888": "Abolição formal da escravidão — marca o início de novas dinâmicas sociais e culturais para comunidades afro-brasileiras, preservando e reinventando tradições.",
+        "1930": "Popularização do samba e outras expressões urbanas de matriz africana, consolidando-se como eixo central do folclore e da cultura popular.",
+        "1960": "Capoeira, religiosidade, ritmos e práticas tradicionais ganham força como formas de resistência cultural durante transformações urbanas.",
+        "1988": "Constituição e avanços legais que reconhecem direitos e a pluralidade cultural, fortalecendo políticas de preservação do patrimônio afro-brasileiro.",
+        "2000": "Movimentos e políticas de valorização do patrimônio imaterial (festas, terreiros, saberes) e maior presença acadêmica sobre o tema.",
+        "2010": "Ações coletivas e projetos de memória e identidade reforçam a visibilidade do folclore afro‑brasileiro em festivais e meios digitais.",
+        "2020": "Ativismo cultural e plataformas digitais ampliam vozes afro‑brasileiras, protegendo tradições e denunciando apagamentos.",
+        "2030": "Expectativa por políticas de reparação, salvaguarda cultural e investimentos que assegurem a continuidade das tradições afro‑brasileiras."
+    };
+
+    (function() {
+        const track = document.querySelector('.timeline-track');
+        const items = Array.from(track.querySelectorAll('.timeline-item'));
+        const panelTitle = document.getElementById('timeline-title');
+        const panelDesc = document.getElementById('timeline-desc');
+
+        function showFor(item) {
+            const year = item.getAttribute('data-year');
+            const title = item.getAttribute('data-title') || year;
+            const desc = TIMELINE_DATA[year] || 'Descrição não disponível.';
+            // atualizar painel
+            panelTitle.textContent = `${year} — ${title}`;
+            panelDesc.textContent = desc;
+            // atualizar estado ativo
+            items.forEach(i => {
+                const pressed = (i === item);
+                i.classList.toggle('active', pressed);
+                i.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+            });
+            // garantir que o item esteja visível (centraliza levemente)
+            item.scrollIntoView({ inline: 'center', behavior: 'smooth' });
+        }
+
+        // clique
+        items.forEach(i => i.addEventListener('click', () => showFor(i)));
+
+        // navegação por teclado (esquerda/direita, Home/End)
+        track.addEventListener('keydown', (e) => {
+            const idx = items.indexOf(document.activeElement);
+            if (idx === -1) return;
+            if (e.key === 'ArrowRight') { e.preventDefault(); items[Math.min(items.length -1, idx +1)].focus(); }
+            if (e.key === 'ArrowLeft')  { e.preventDefault(); items[Math.max(0, idx -1)].focus(); }
+            if (e.key === 'Home')       { e.preventDefault(); items[0].focus(); }
+            if (e.key === 'End')        { e.preventDefault(); items[items.length -1].focus(); }
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                showFor(document.activeElement);
+            }
+        });
+
+        // selecionar primeiro item por padrão (opcional)
+        // showFor(items[0]);
+    })();
+
+    // Formulário: validação básica (mantido)
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        // validação básica
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
@@ -88,7 +171,6 @@
             alert('Por favor, preencha todos os campos.');
             return;
         }
-        // feedback para o usuário (aqui você pode integrar com um backend)
         alert('Obrigado, ' + name + '! Sua mensagem foi recebida (simulação).');
         this.reset();
     });

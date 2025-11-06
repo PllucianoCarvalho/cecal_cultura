@@ -1,234 +1,270 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* Reset/base simples */
-:root{
-  --max-width: 1000px;
-  --accent: #2b7a78;
-  --muted: #666;
-  --bg: #fffdfa;
-  --gap: 1rem;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:#111;}
-a{color:var(--accent); text-decoration:none}
-.container{max-width:var(--max-width);margin:0 auto;padding:1rem}
+/* Paleta fornecida */
+:root {
+	--p-1: #f2b544;
+	--p-2: #f29b30;
+	--p-3: #d9560b;
+	--p-4: #733009;
+	--p-5: #bf3706;
 
+	--bg-soft: #fffaf0;
+	--text: #222;
+	--muted: #555;
+	--radius: 8px;
+	--gap: 1rem;
+}
+
+/* Reset / base */
+* { box-sizing: border-box; }
+html,body { height:100%; }
 body {
-    background: linear-gradient(to bottom, #F2B544 0%, #f0f0f0 100%); /* Gradiente suave com a cor mais clara da paleta para um fundo acolhedor */
-    font-family: 'Roboto', sans-serif;
-    color: #733009; /* Marrom escuro da paleta para texto principal, evocando terra e raízes culturais */
-    margin: 0;
-    padding: 0;
-    line-height: 1.8;
-    font-size: 16px;
+	/* leve degradê usando a cor mais clara */
+	background: linear-gradient(180deg, var(--p-1) 0%, var(--bg-soft) 40%);
+	color: var(--text);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	line-height: 1.6;
+	margin: 0;
+	padding: 1.25rem;
 }
 
-header {
-    background: linear-gradient(to right, #F29B30, #D9560B); /* Gradiente laranja vibrante para o header, simbolizando energia e miscigenação */
-    text-align: center;
-    padding: 40px 20px;
-    box-shadow: 0 4px 10px rgba(115, 48, 9, 0.2); /* Sombra sutil com marrom da paleta para profundidade */
-    position: relative;
-    overflow: hidden;
-}
-
-.banner {
-    width: 100%;
-    background: #f4f2ef;
-    padding: 0;
-}
-
-.banner img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(191, 55, 6, 0.3); /* Sombra com tom avermelhado para destaque */
-    transition: transform 0.3s ease-in-out;
-}
-
-.banner img:hover {
-    transform: scale(1.05); /* Efeito de zoom suave ao hover para interatividade */
-}
-
-.banner figcaption {
-    font-size: .9rem;
-    color: var(--muted);
-    text-align: center;
-    padding: .5rem;
-}
-
-nav {
-    background: #ffffff;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 15px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(115, 48, 9, 0.15);
-}
-
-nav .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: .5rem 0;
-    display: flex;
-    gap: 1rem;
-}
-
-nav ul li {
-    margin: 0 20px;
-}
-
-nav a {
-    padding: .4rem .6rem;
-    border-radius: 4px;
-    color: #F2B544; /* Amarelo claro da paleta para links, contrastando bem */
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 18px;
-    transition: color 0.3s ease, transform 0.2s ease;
-}
-
-nav a:hover, nav a:focus {
-    background: #f0f6f6;
-    color: #FFFFFF; /* Branco puro no hover para destaque */
-    transform: translateY(-2px); /* Efeito de elevação sutil */
-}
-
-main, section {
-    padding: 1rem;
-}
-
-main {
-    max-width: 900px; /* Aumentado para melhor legibilidade em desktops */
-    margin: 40px auto;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.95); /* Fundo branco semi-transparente para sobrepor o gradiente do body */
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(217, 86, 11, 0.1); /* Sombra laranja suave */
-}
-
-h1 {
-    font-family: 'Merriweather', serif;
-    color: #D9560B; /* Laranja médio para títulos, vibrante e temático */
-    text-align: center;
-    font-size: 36px;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
-    text-shadow: 1px 1px 2px rgba(115, 48, 9, 0.2); /* Sombra de texto para elegância */
-}
-
-p {
-    color: #733009; /* Marrom escuro para parágrafos, legível e natural */
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-section {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 2px dashed #F29B30; /* Borda dashed com laranja para um toque folclórico */
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(to top, #733009, #BF3706); /* Gradiente marrom-vermelho para footer, ancorando o design */
-    color: #F2B544; /* Amarelo claro para texto no footer */
-    font-size: 14px;
-    margin-top: 40px;
-}
-
-/* Skip link */
+/* Skip link acessível */
 .skip-link {
-    position: absolute;
-    left: -999px;
-    top: auto;
-    background: #000;
-    color: #fff;
-    padding: .5rem 1rem;
-    z-index: 100;
+	position: absolute;
+	left: -999px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
 }
 .skip-link:focus {
-    left: 1rem;
-    top: 1rem;
-    border-radius: 4px;
+	left: 1rem;
+	top: 1rem;
+	width: auto;
+	height: auto;
+	padding: 0.5rem 0.75rem;
+	background: var(--p-3);
+	color: #fff;
+	border-radius: 6px;
+	z-index: 1000;
+	text-decoration: none;
 }
 
-/* Form */
+/* Header / banner */
+header .banner {
+	margin: 0 0 var(--gap) 0;
+}
+header figure { margin: 0; }
+
+/* Adicionado: estilos para o logo da escola */
+.logo {
+	display: block;
+	max-width: 140px;
+	height: auto;
+	margin: 0 0 0.75rem 0;
+	border-radius: 12px;
+	border: 3px solid rgba(255,255,255,0.7);
+	box-shadow: 0 8px 26px rgba(115,48,9,0.14);
+	background: linear-gradient(180deg, rgba(242,181,68,0.08), rgba(242,155,48,0.04));
+}
+
+/* Navegação principal */
+nav {
+	background: linear-gradient(90deg, var(--p-2), var(--p-3));
+	color: #fff;
+	padding: 0.5rem;
+	border-radius: 10px;
+	margin-bottom: var(--gap);
+}
+nav ul {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0.25rem;
+}
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 0.5rem 0.75rem;
+	border-radius: 8px;
+	transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+nav a:hover, nav a:focus {
+	background: rgba(255,255,255,0.12);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+	outline: none;
+}
+
+/* Conteúdo principal */
+main {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 1rem;
+	background: rgba(255,255,255,0.85);
+	border-radius: 10px;
+}
+main h1 {
+	color: var(--p-4);
+	font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+	margin-top: 0;
+}
+
+/* Seções */
+section {
+	max-width: 900px;
+	margin: 1rem auto;
+	padding: 1rem;
+	background: rgba(255,255,255,0.9);
+	border-radius: 10px;
+	border: 1px solid rgba(115,48,9,0.06);
+}
+
+/* Linha do tempo */
+.timeline {
+	display: grid;
+	gap: 1rem;
+}
+.timeline-track {
+	display: flex;
+	gap: 0.6rem;
+	overflow-x: auto;
+	padding: 0.6rem;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	border-radius: 10px;
+	background: linear-gradient(90deg, rgba(242,181,68,0.06), rgba(217,86,11,0.03));
+	border: 1px solid rgba(115,48,9,0.04);
+}
+.timeline-track::-webkit-scrollbar { height: 10px; }
+.timeline-track::-webkit-scrollbar-thumb { background: rgba(115,48,9,0.18); border-radius: 8px; }
+
+/* itens da timeline */
+.timeline-item {
+	flex: 0 0 auto;
+	min-width: 88px;
+	padding: 0.6rem 0.75rem;
+	background: rgba(255,255,255,0.95);
+	border-radius: 8px;
+	border: 1px solid rgba(115,48,9,0.06);
+	font-weight: 700;
+	color: var(--p-4);
+	cursor: pointer;
+	transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+	scroll-snap-align: center;
+}
+.timeline-item:hover,
+.timeline-item:focus {
+	transform: translateY(-4px);
+	box-shadow: 0 10px 26px rgba(115,48,9,0.12);
+	outline: none;
+}
+.timeline-item.active {
+	background: linear-gradient(180deg, var(--p-2), var(--p-3));
+	color: #fff;
+	box-shadow: 0 14px 40px rgba(115,48,9,0.16);
+	border: none;
+}
+
+/* Painel que mostra o evento */
+.timeline-panel {
+	padding: 0.85rem;
+	border-radius: 10px;
+	background: rgba(255,255,255,0.98);
+	border: 1px solid rgba(115,48,9,0.06);
+	box-shadow: 0 8px 24px rgba(115,48,9,0.06);
+}
+.timeline-panel h3 {
+	margin: 0 0 0.4rem 0;
+	color: var(--p-4);
+	font-size: 1.05rem;
+}
+.timeline-panel p {
+	margin: 0;
+	color: var(--muted);
+}
+
+/* Formulário */
 form {
-    max-width: 600px;
+	display: grid;
+	gap: 0.6rem;
 }
 label {
-    display: block;
-    margin-top: .75rem;
-    font-weight: 600;
+	font-weight: 600;
+	color: var(--p-4);
 }
-input[type="text"], input[type="email"], textarea {
-    width: 100%;
-    padding: .6rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-top: .25rem;
-    background: #fff;
+input[type="text"],
+input[type="email"],
+textarea {
+	width: 100%;
+	padding: 0.6rem;
+	border-radius: 8px;
+	border: 1px solid rgba(115,48,9,0.12);
+	background: #fff;
+	color: var(--text);
+	resize: vertical;
+	transition: box-shadow .12s ease, border-color .12s ease;
 }
-button {
-    margin-top: 1rem;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: .6rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
+input:focus, textarea:focus {
+	outline: none;
+	border-color: var(--p-3);
+	box-shadow: 0 6px 20px rgba(217,86,11,0.12);
 }
-button:hover {
-    opacity: .95;
+
+/* Botões */
+button[type="submit"] {
+	background: linear-gradient(180deg, var(--p-3), var(--p-5));
+	color: #fff;
+	border: none;
+	padding: 0.6rem 0.85rem;
+	border-radius: 10px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: transform .12s ease, filter .12s ease;
 }
+button[type="submit"]:hover, button[type="submit"]:focus {
+	transform: translateY(-2px);
+	filter: brightness(1.02);
+	outline: 3px solid rgba(242,155,48,0.18);
+}
+
+/* Nota do formulário */
 .form-note {
-    font-size: .85rem;
-    color: var(--muted);
-    margin-top: .5rem;
+	font-size: 0.9rem;
+	color: var(--muted);
+	margin-top: 0.5rem;
 }
 
-/* Media queries para responsividade */
-@media (max-width: 768px) {
-    main {
-        padding: 20px;
-        margin: 20px;
-    }
-    
-    h1 {
-        font-size: 28px;
-    }
-    
-    nav ul li {
-        margin: 10px;
-    }
-    
-    nav ul li a {
-        font-size: 16px;
-    }
+/* Rodapé */
+footer {
+	max-width: 900px;
+	margin: 1.25rem auto 0;
+	padding: 0.85rem;
+	background: linear-gradient(90deg, var(--p-4), var(--p-5));
+	color: #fff;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0 8px 30px rgba(115,48,9,0.14);
+}
+footer p { margin: 0; }
+
+/* Pequenas melhorias responsivas */
+@media (max-width: 600px) {
+	body { padding: 1rem; }
+	nav ul { gap: 0.35rem; }
+	main, section, footer { padding: 0.85rem; }
+
+	/* Ajuste do logo em telas pequenas */
+	.logo {
+		max-width: 100px;
+		margin-bottom: 0.5rem;
+	}
 }
 
-@media(min-width:800px){
-  main{display:block;padding:2rem}
-  nav ul{gap:1.25rem}
-}
-
-/* Adicionais para beleza: Transições suaves e acessibilidade */
-a {
-    transition: all 0.3s ease;
-}
-
-:focus {
-    outline: 2px solid #D9560B; /* Foco acessível com cor da paleta */
+@media (max-width: 700px) {
+	.timeline-item { min-width: 80px; padding: 0.5rem; }
+	.timeline-panel h3 { font-size: 1rem; }
 }
