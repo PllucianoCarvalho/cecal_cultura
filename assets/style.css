@@ -114,7 +114,7 @@ nav a:hover, nav a:focus {
 
 /* Conteúdo principal */
 main {
-	max-width: 900px;
+	max-width: 1200px;
 	margin: 0 auto;
 	padding: 1rem;
 	background: rgba(255,255,255,0.92); /* um pouco mais opaco que antes */
@@ -129,7 +129,7 @@ main h1 {
 
 /* Seções */
 section {
-	max-width: 900px;
+	max-width: 1200px;
 	margin: 1rem auto;
 	padding: 1rem;
 	background: rgba(255,255,255,0.9);
@@ -196,8 +196,8 @@ section {
 	flex-wrap: wrap;
 }
 .timeline-panel img {
-	width: 300px;           /* ← TAMANHO PADRÃO PARA TODAS AS IMAGENS */
-	height: 200px;          /* ← TAMANHO PADRÃO PARA TODAS AS IMAGENS */
+	width: 350px;           /* ← TAMANHO PADRÃO PARA TODAS AS IMAGENS */
+	height: 300px;          /* ← TAMANHO PADRÃO PARA TODAS AS IMAGENS */
 	object-fit: cover;
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -287,7 +287,7 @@ button[type="submit"]:hover, button[type="submit"]:focus {
 
 /* Rodapé */
 footer {
-	max-width: 900px;
+	max-width: 1200px;
 	margin: 1.25rem auto 0;
 	padding: 0.85rem;
 	background: linear-gradient(90deg, var(--p-4), var(--p-5));

@@ -112,10 +112,10 @@
             <li class="nav-games">
                 <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
                 <ul id="games-menu" role="menu" aria-hidden="true">
-                    <li role="none"><a role="menuitem" href="ancestral-beats.html">Ancestral Beats 8°C </a></li>
-                    <li role="none"><a role="menuitem" href="jogo1.html">TOWER DEFENSE 8ºB</a></li>
+                    <li role="none"><a role="menuitem" href="ancestral-beats.html">EM CONSTRUÇÃO 8°C </a></li>
+                    <li role="none"><a role="menuitem" href="jogo1.html">EM CONSTRUÇÃO 8ºB</a></li>
                     <li role="none"><a role="menuitem" href="culinaria.html">QUIZ CULINÁRIO 8ºB</a></li>
-                    <li role="none"><a role="menuitem" href="maracatu-memory.html">adicionar 8ºA</a></li>
+                    <li role="none"><a role="menuitem" href="maracatu-memory.html">EM CONSTRUÇÃO 8ºA</a></li>
                 </ul>
             </li>
         </ul>
@@ -142,15 +142,17 @@
             <div class="timeline-track" role="listbox" aria-label="Anos importantes">
                 <button class="timeline-item" role="option" aria-pressed="false" data-year="1500" data-title="Chegada dos portugueses">1500</button>
                 <button class="timeline-item" role="option" aria-pressed="false" data-year="1530" data-title="Início do tráfico de africanos">1530</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="1808" data-title="Formação de terreiros e práticas afro">1808</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="1888" data-title="Abolição e trajetórias Afro-brasileiras">1888</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="1930" data-title="Samba e cultura urbana de matriz africana">1930</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="1960" data-title="Capoeira, música e resistência cultural">1960</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="1988" data-title="Reconhecimento dos direitos culturais">1988</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="2000" data-title="Valorização do patrimônio imaterial">2000</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="2010" data-title="Movimentos por memória e identidade">2010</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="2020" data-title="Ativismo cultural e resistência digital">2020</button>
-                <button class="timeline-item" role="option" aria-pressed="false" data-year="2030" data-title="Expectativas de reparação e preservação">2030</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1808" data-title="Formação do quilombo dos palmares">1600</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1888" data-title="Execução de Zumbi – Dia da Consciência Negra">1695</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1930" data-title="Irmandades Negras (Rosário, Boa Morte)">1700</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="1960" data-title="Pico do tráfico banto (Angola/Moçambique)">1807-1835</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2000" data-title="Origem do carnaval afro em Bahia e RJ">1830</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2010" data-title="Lei Áurea – Abolição da Escravatura">1888</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2020" data-title="Frente Negra Brasileira (FNB)">1931</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2030" data-title="Capoeira reconhecida como esporte nacional">1953</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2030" data-title="Blocos afros: Ilê Aiyê e Olodum">1970</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2030" data-title="Ensino obrigatório de cultura afro">2003</button>
+                <button class="timeline-item" role="option" aria-pressed="false" data-year="2030" data-title="20 de novembro - feriado nacional">2023</button>
             </div>
 
             <!-- Painel com imagem ao lado do texto -->
@@ -224,9 +226,9 @@
         // Mapeamento: ano → {src, alt}
         const IMAGES = {
             '1500': { src: 'assets/images/1500.png', alt: 'Ilustração da chegada de Pedro Álvares Cabral em 1500, com portugueses e indígenas na praia.' },
-            '1530': { src: 'assets/images/1530-trafico-nordeste.jpg', alt: 'Mercado de escravos no Recife, com africanos acorrentados sendo vendidos por portugueses.' },
-            '1808': { src: 'assets/images/1808-terreiros.jpg', alt: 'Formação de terreiros de candomblé no Rio de Janeiro após a chegada da corte portuguesa.' },
-            '1888': { src: 'assets/images/1888-abolicao.jpg', alt: 'Assinatura da Lei Áurea em 1888, libertando os últimos escravizados no Brasil.' },
+            '1530': { src: 'assets/images/1530.jpg', alt: 'Mercado de escravos no Recife, com africanos acorrentados sendo vendidos por portugueses.' },
+            '1808': { src: 'assets/images/1600.jpg', alt: 'Formação de terreiros de candomblé no Rio de Janeiro após a chegada da corte portuguesa.' },
+            '1888': { src: 'assets/images/1888-abolicao.jpg', alt: 'lei aurea' },
             '1930': { src: 'assets/images/1930-samba.jpg', alt: 'Escolas de samba no Rio de Janeiro nos anos 1930, com desfile na Praça XI.' },
             '1960': { src: 'assets/images/1960-capoeira.jpg', alt: 'Roda de capoeira em Salvador, reconhecida como esporte em 1960.' },
             '1988': { src: 'assets/images/1988-constituicao.jpg', alt: 'Constituição de 1988 garantindo direitos culturais e territoriais quilombolas.' },
