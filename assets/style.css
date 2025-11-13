@@ -381,7 +381,6 @@ header .banner {
 	color: var(--p-1);
 	/* sombra suave em tom marrom escuro para manter legibilidade */
 	text-shadow: 0 6px 18px rgba(115,48,9,0.55);
-	background: linear-gradient(90deg, rgba(0,0,0,0.32), rgba(0,0,0,0.18));
 	opacity: 0;
 	visibility: hidden;
 	pointer-events: none;

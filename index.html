@@ -10,6 +10,21 @@
     <style>
         /* dropdown games */
         .nav-games { position: relative; }
+        
+        /* Estilo para o nome da escola no canto direito */
+        nav ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .school-name {
+            margin-left: auto;
+            font-weight: 700;
+            color: #fff;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+        
         #games-button {
             background: linear-gradient(45deg, #F2B33D, #F29727);
             color: #401201;
@@ -52,6 +67,7 @@
         /* responsivo */
         @media (max-width:640px){
             #games-menu { right: 0; left: auto; min-width: 180px; }
+            .school-name { display: none; } /* Esconde o nome da escola em telas pequenas */
         }
 
         /* NOVO: Estilo do painel com imagem ao lado do texto */
@@ -102,7 +118,7 @@
 </head>
 <body>
     <!-- Navegação principal (movida para o topo) -->
-    <nav aria-label="Navegação principal">
+    <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="#history">História</a></li>
@@ -118,6 +134,9 @@
                     <li role="none"><a role="menuitem" href="maracatu-memory.html">EM CONSTRUÇÃO 8ºA</a></li>
                 </ul>
             </li>
+            
+            <!-- Nome da escola no canto direito -->
+            <li class="school-name">Colégio Campina da Lagoa</li>
         </ul>
     </nav>
     
