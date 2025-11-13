@@ -443,6 +443,161 @@
             }
         }
 
+        /* NOVO: Tela inicial (splash screen) */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(-45deg, #1a2a6c, #8B0000, #FFD700, #228B22, #1a1a2e);
+            background-size: 600% 600%;
+            animation: africanGradient 20s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: white;
+            text-align: center;
+            opacity: 1;
+            transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
+        }
+
+        #splash-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .splash-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,215,0,0.12) 12%, transparent 12%),
+                radial-gradient(circle at 80% 20%, rgba(139,69,19,0.12) 12%, transparent 12%),
+                radial-gradient(circle at 50% 50%, rgba(34,139,34,0.08) 18%, transparent 18%);
+            background-size: 70px 70px;
+            pointer-events: none;
+            z-index: 0;
+            animation: patternPulse 10s ease-in-out infinite;
+        }
+
+        .splash-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 
+                0 0 20px rgba(255,215,0,0.9),
+                4px 4px 10px rgba(139,69,19,0.8);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            animation: titleGlow 3.5s ease-in-out infinite alternate;
+            z-index: 1;
+            position: relative;
+        }
+
+        .splash-subtitle {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            animation: slideUp 2s ease-out 0.5s both;
+            z-index: 1;
+            position: relative;
+            max-width: 80%;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.95;
+                transform: translateY(0);
+            }
+        }
+
+        .splash-enter-btn {
+            background: linear-gradient(45deg, var(--earth), #A0522D);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 800;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(139,69,19,0.6);
+            transition: all 0.5s ease;
+            animation: drumBounce 2.5s ease-out 1s both;
+            z-index: 1;
+            position: relative;
+            border: 3px solid rgba(255,215,0,0.7);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        @keyframes drumBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotate(-15deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1) rotate(5deg);
+            }
+            70% {
+                transform: scale(0.95) rotate(-2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .splash-enter-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(139,69,19,0.7);
+            background: linear-gradient(45deg, #A0522D, var(--earth));
+        }
+
+        .splash-enter-btn i {
+            font-size: 1.4em;
+            color: var(--gold);
+            animation: drumBeat 1.8s infinite;
+        }
+
+        .splash-school-credit {
+            position: absolute;
+            bottom: 2rem;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--gold);
+            opacity: 0.9;
+            animation: fadeIn 2s ease-out 1.5s both;
+            z-index: 1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.9; }
+        }
+
+        /* Esconder quiz container inicialmente */
+        #quiz-container.hidden {
+            display: none;
+        }
+
         .progress-bar {
             height: 12px;
             background: rgba(255,255,255,0.25);
@@ -496,9 +651,20 @@
 <body>
     <a class="back-link" href="index.html">← Voltar</a>
     
+    <!-- Tela inicial (splash screen) -->
+    <div id="splash-screen">
+        <div class="splash-pattern"></div>
+        <h1 class="splash-logo">RITMOS DA ANCESTRALIDADE</h1>
+        <p class="splash-subtitle">Ouça a voz dos griôs e sinta o tambor!<br>Quiz sobre instrumentos afro-brasileiros</p>
+        <button class="splash-enter-btn" onclick="startQuizFromSplash()">
+            <i class="fas fa-drum"></i> COMEÇAR QUIZ
+        </button>
+        <div class="splash-school-credit">8ºC - Colégio Campina da Lagoa</div>
+    </div>
+    
     <div class="african-pattern"></div>
     
-    <div id="quiz-container">
+    <div id="quiz-container" class="hidden">
         <h1>Ritmos da Ancestralidade</h1>
         <p class="subtitle">Ouça a voz dos griôs e sinta o tambor!</p>
         
@@ -903,8 +1069,31 @@
             }
         }
 
-        // Iniciar
-        setTimeout(startQuiz, 1000);
+        // Função para iniciar o quiz a partir da splash screen
+        function startQuizFromSplash() {
+            const splashScreen = document.getElementById('splash-screen');
+            const quizContainer = document.getElementById('quiz-container');
+            
+            // Fade out da splash screen
+            splashScreen.classList.add('fade-out');
+            
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                quizContainer.classList.remove('hidden');
+                
+                // Configurar música e voz
+                bgMusic.volume = 0.4;
+                bgMusic.play().catch(() => {
+                    console.log('Autoplay bloqueado, música iniciará após interação');
+                });
+                
+                loadVoices();
+                startQuiz();
+            }, 1500);
+        }
+
+        // Remover o setTimeout de inicialização automática
+        // setTimeout(startQuiz, 1000);
     </script>
 </body>
 </html>
