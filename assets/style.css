@@ -298,6 +298,58 @@ footer {
 }
 footer p { margin: 0; }
 
+/* Estilos para o header e banner */
+header {
+	width: 100%;
+	margin: 0 auto var(--gap);
+	position: relative;
+}
+
+header .banner {
+	position: relative;
+	width: 100%;
+	margin: 0;
+}
+
+header .banner figure {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	display: block;
+}
+
+/* Imagem do header responsiva */
+.header-image {
+	width: 100%;
+	height: auto;
+	display: block;
+	border-radius: var(--radius);
+	object-fit: cover;
+	max-height: 500px;
+}
+
+/* Ajuste para telas grandes */
+@media (min-width: 1400px) {
+	.header-image {
+		max-height: 600px;
+	}
+}
+
+/* Ajuste para telas médias */
+@media (max-width: 768px) {
+	.header-image {
+		max-height: 400px;
+	}
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 480px) {
+	.header-image {
+		max-height: 300px;
+		border-radius: 6px;
+	}
+}
+
 /* Overlay central sobre a imagem do header (textos sobrepostos, maior tamanho e transição suave) */
 .header-overlay {
 	position: absolute;
@@ -310,7 +362,10 @@ footer p { margin: 0; }
 	text-align: center;
 	padding: 1rem;
 }
-header .banner { position: relative; } /* garante referência para absolute */
+header .banner {
+	position: relative; /* garante referência para absolute */
+	width: 100%;
+}
 
 .overlay-text {
 	position: absolute;
