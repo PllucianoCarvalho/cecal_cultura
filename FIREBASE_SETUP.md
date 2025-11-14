@@ -34,6 +34,7 @@ Depois de ativar o Realtime Database:
     "rankings": {
       ".read": true,
       ".write": true,
+      ".indexOn": ["points"],
       "$rankingId": {
         ".validate": "newData.hasChildren(['name', 'level', 'points', 'timestamp']) && newData.child('name').isString() && newData.child('level').isNumber() && newData.child('points').isNumber()"
       }
