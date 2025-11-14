@@ -903,8 +903,15 @@
                 displayedWord[idx] = currentWord.word[idx];
                 document.getElementById('word-display').textContent = displayedWord.join(' ');
                 
+                // Debug: log para verificar o estado
+                console.log('Após revelar letra:');
+                console.log('Palavra atual:', currentWord.word);
+                console.log('Display:', displayedWord.join(''));
+                console.log('Tem underscore?', displayedWord.includes('_'));
+                
                 // Verifica se a palavra foi completada após revelar a letra
                 if (!displayedWord.includes('_')) {
+                    console.log('Palavra completada! Chamando win()');
                     win();
                 }
             }
@@ -948,7 +955,17 @@
                 });
                 
                 document.getElementById('word-display').textContent = displayedWord.join(' ');
-                if (!displayedWord.includes('_')) win();
+                
+                // Debug: log para verificar
+                console.log('Após clicar letra:', letter);
+                console.log('Palavra atual:', currentWord.word);
+                console.log('Display:', displayedWord.join(''));
+                console.log('Tem underscore?', displayedWord.includes('_'));
+                
+                if (!displayedWord.includes('_')) {
+                    console.log('Palavra completada via clique! Chamando win()');
+                    win();
+                }
             } else {
                 btn.classList.add('wrong');
                 play(wrongSound);
