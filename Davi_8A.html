@@ -902,6 +902,11 @@
                 const idx = hidden[Math.floor(Math.random()*hidden.length)];
                 displayedWord[idx] = currentWord.word[idx];
                 document.getElementById('word-display').textContent = displayedWord.join(' ');
+                
+                // Verifica se a palavra foi completada após revelar a letra
+                if (!displayedWord.includes('_')) {
+                    win();
+                }
             }
         }
 
