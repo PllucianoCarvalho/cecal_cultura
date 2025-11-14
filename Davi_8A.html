@@ -365,6 +365,15 @@
             color: var(--deep);
             transform: scale(1.05);
         }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
     </style>
 </head>
 <body>
@@ -554,7 +563,84 @@
             return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
         }
 
-        // Sistema de Ranking
+        // Sistema de Ranking Global
+        const RANKING_API_URL = 'https://api.jsonbin.io/v3/b/673607bae41b4d34e4534a2b';
+        const API_KEY = '$2a$10$8K9Zx.YvQ5pN2mR4jL6wGOqF3tH7sE1dV9bC8aX5nM0kJ2iP6uQ4r';
+        let isOnline = navigator.onLine;
+
+        // Sistema de Ranking Global
+        async function saveScoreGlobal(name, level, wordsCorrect) {
+            const points = (level * 100) + (wordsCorrect * 10);
+            const score = {
+                name: name,
+                level: level,
+                wordsCorrect: wordsCorrect,
+                date: new Date().toLocaleDateString('pt-BR'),
+                timestamp: Date.now(),
+                points: points
+            };
+
+            try {
+                // Salva localmente primeiro
+                saveScore(name, level, wordsCorrect);
+                
+                if (!isOnline) {
+                    console.log('Offline - score salvo apenas localmente');
+                    return;
+                }
+
+                // Busca ranking atual
+                const currentRanking = await getGlobalRanking();
+                currentRanking.push(score);
+                
+                // Ordena e mantém top 50
+                currentRanking.sort((a, b) => b.points - a.points);
+                currentRanking.splice(50);
+
+                // Salva no servidor
+                const response = await fetch(RANKING_API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify({ scores: currentRanking })
+                });
+
+                if (response.ok) {
+                    console.log('Score salvo globalmente!');
+                } else {
+                    console.log('Erro ao salvar no servidor, mantendo local');
+                }
+            } catch (error) {
+                console.log('Erro de conexão, mantendo score local:', error);
+            }
+        }
+
+        async function getGlobalRanking() {
+            try {
+                if (!isOnline) {
+                    return getScores();
+                }
+
+                const response = await fetch(RANKING_API_URL + '/latest', {
+                    headers: {
+                        'X-Master-Key': API_KEY
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.record.scores || [];
+                } else {
+                    console.log('Erro ao buscar ranking global, usando local');
+                    return getScores();
+                }
+            } catch (error) {
+                console.log('Erro de conexão, usando ranking local:', error);
+                return getScores();
+            }
+        }
         function saveScore(name, level, wordsCorrect) {
             const scores = getScores();
             const score = {
@@ -566,7 +652,7 @@
             };
             scores.push(score);
             scores.sort((a, b) => b.points - a.points);
-            scores.splice(10); // Manter apenas top 10
+            scores.splice(10); // Manter apenas top 10 local
             localStorage.setItem('hangmanScores', JSON.stringify(scores));
         }
 
@@ -575,20 +661,45 @@
             return scores ? JSON.parse(scores) : [];
         }
 
-        function showRanking() {
-            const scores = getScores();
+        async function showRanking() {
             const rankingList = document.getElementById('ranking-list');
             
-            if (scores.length === 0) {
-                rankingList.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;">Nenhum score registrado ainda!</p>';
-            } else {
-                rankingList.innerHTML = scores.map((score, index) => `
-                    <div class="ranking-item ${index < 3 ? 'top-3' : ''}">
-                        <span class="ranking-position">#${index + 1}</span>
-                        <span class="ranking-name">${score.name}</span>
-                        <span class="ranking-score">Nv.${score.level} (${score.points}pts)</span>
-                    </div>
-                `).join('');
+            // Mostra loading
+            rankingList.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;"><span style="animation: pulse 2s infinite;">🌐 Carregando ranking global...</span></p>';
+            
+            try {
+                const scores = await getGlobalRanking();
+                
+                if (scores.length === 0) {
+                    rankingList.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;">Nenhum score registrado ainda!</p>';
+                } else {
+                    const statusIcon = isOnline ? '🌐' : '📱';
+                    const statusText = isOnline ? 'Ranking Global' : 'Ranking Local';
+                    
+                    rankingList.innerHTML = `
+                        <div style="text-align:center;margin-bottom:1rem;color:var(--gold);font-size:0.9rem;">
+                            ${statusIcon} ${statusText}
+                        </div>
+                        ${scores.slice(0, 20).map((score, index) => `
+                            <div class="ranking-item ${index < 3 ? 'top-3' : ''}">
+                                <span class="ranking-position">#${index + 1}</span>
+                                <span class="ranking-name">${score.name}</span>
+                                <span class="ranking-score">Nv.${score.level} (${score.points}pts)</span>
+                            </div>
+                        `).join('')}`;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar ranking:', error);
+                const localScores = getScores();
+                rankingList.innerHTML = localScores.length > 0 ? 
+                    localScores.map((score, index) => `
+                        <div class="ranking-item ${index < 3 ? 'top-3' : ''}">
+                            <span class="ranking-position">#${index + 1}</span>
+                            <span class="ranking-name">${score.name}</span>
+                            <span class="ranking-score">Nv.${score.level} (${score.points}pts)</span>
+                        </div>
+                    `).join('') :
+                    '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;">Erro ao carregar ranking</p>';
             }
             
             document.getElementById('ranking-modal').style.display = 'flex';
@@ -646,6 +757,17 @@
             loadWord();
         };
 
+        // Detector de status online/offline
+        window.addEventListener('online', () => {
+            isOnline = true;
+            console.log('Conectado! Ranking global disponível.');
+        });
+        
+        window.addEventListener('offline', () => {
+            isOnline = false;
+            console.log('Desconectado! Usando ranking local.');
+        });
+
         // Event listeners para ranking
         document.getElementById('ranking-btn').onclick = () => {
             play(clickSound);
@@ -662,13 +784,22 @@
             document.getElementById('ranking-modal').style.display = 'none';
         };
 
-        document.getElementById('save-score').onclick = () => {
+        document.getElementById('save-score').onclick = async () => {
             const name = document.getElementById('player-name').value.trim();
             if (name) {
-                saveScore(name, level, totalWordsCorrect);
+                // Mostra loading
+                document.getElementById('save-score').innerHTML = '⏳ Salvando...';
+                document.getElementById('save-score').disabled = true;
+                
+                await saveScoreGlobal(name, level, totalWordsCorrect);
+                
                 play(clickSound);
                 document.getElementById('name-modal').style.display = 'none';
                 showRanking();
+                
+                // Restaura botão
+                document.getElementById('save-score').innerHTML = 'Salvar';
+                document.getElementById('save-score').disabled = false;
             } else {
                 alert('Por favor, digite seu nome!');
             }
