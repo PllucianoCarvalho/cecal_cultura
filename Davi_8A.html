@@ -530,6 +530,8 @@
         let playerName = '';
         let totalWordsCorrect = 0;
         let gameStartTime = Date.now();
+        let rankingCache = null; // Cache do ranking
+        let lastRankingUpdate = 0; // Timestamp da última atualização
 
         let currentWord = {};
         let displayedWord = [];
@@ -568,7 +570,7 @@
         const API_KEY = '$2a$10$8K9Zx.YvQ5pN2mR4jL6wGOqF3tH7sE1dV9bC8aX5nM0kJ2iP6uQ4r';
         let isOnline = navigator.onLine;
 
-        // Sistema de Ranking Global
+        // System de Ranking Global
         async function saveScoreGlobal(name, level, wordsCorrect) {
             const points = (level * 100) + (wordsCorrect * 10);
             const score = {
@@ -581,16 +583,21 @@
             };
 
             try {
-                // Salva localmente primeiro
+                // Salva localmente primeiro (garantia)
                 saveScore(name, level, wordsCorrect);
                 
                 if (!isOnline) {
-                    console.log('Offline - score salvo apenas localmente');
+                    console.log('⚠️ Offline - score salvo apenas localmente');
                     return;
                 }
 
-                // Busca ranking atual
+                // Busca ranking atual com timeout
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
+
                 const currentRanking = await getGlobalRanking();
+                clearTimeout(timeoutId);
+
                 currentRanking.push(score);
                 
                 // Ordena e mantém top 50
@@ -608,36 +615,59 @@
                 });
 
                 if (response.ok) {
-                    console.log('Score salvo globalmente!');
+                    console.log('✅ Score salvo globalmente!');
+                    rankingCache = currentRanking; // Atualiza o cache
+                    lastRankingUpdate = Date.now();
                 } else {
-                    console.log('Erro ao salvar no servidor, mantendo local');
+                    console.log('⚠️ Erro ao salvar no servidor, mantendo local');
                 }
             } catch (error) {
-                console.log('Erro de conexão, mantendo score local:', error);
+                console.log('⚠️ Erro de conexão, mantendo score local:', error);
             }
         }
 
         async function getGlobalRanking() {
+            // Verifica se tem cache válido (menos de 2 minutos)
+            const now = Date.now();
+            if (rankingCache && (now - lastRankingUpdate) < 120000) {
+                console.log('Usando cache do ranking');
+                return rankingCache;
+            }
+
             try {
                 if (!isOnline) {
+                    console.log('Offline - usando ranking local');
                     return getScores();
                 }
+
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 segundos timeout
 
                 const response = await fetch(RANKING_API_URL + '/latest', {
                     headers: {
                         'X-Master-Key': API_KEY
-                    }
+                    },
+                    signal: controller.signal
                 });
+
+                clearTimeout(timeoutId);
 
                 if (response.ok) {
                     const data = await response.json();
-                    return data.record.scores || [];
+                    rankingCache = data.record.scores || [];
+                    lastRankingUpdate = now;
+                    console.log('Ranking global carregado com sucesso!');
+                    return rankingCache;
                 } else {
                     console.log('Erro ao buscar ranking global, usando local');
                     return getScores();
                 }
             } catch (error) {
-                console.log('Erro de conexão, usando ranking local:', error);
+                if (error.name === 'AbortError') {
+                    console.log('Timeout ao buscar ranking, usando local');
+                } else {
+                    console.log('Erro de conexão, usando ranking local:', error);
+                }
                 return getScores();
             }
         }
@@ -668,21 +698,25 @@
             rankingList.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;"><span style="animation: pulse 2s infinite;">🌐 Carregando ranking global...</span></p>';
             
             try {
+                // Força atualização do ranking ao abrir
+                rankingCache = null; // Limpa o cache para buscar dados frescos
                 const scores = await getGlobalRanking();
                 
                 if (scores.length === 0) {
-                    rankingList.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;">Nenhum score registrado ainda!</p>';
+                    rankingList.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.6);padding:2rem;">Nenhum score registrado ainda!<br>Seja o primeiro! 🏆</p>';
                 } else {
                     const statusIcon = isOnline ? '🌐' : '📱';
                     const statusText = isOnline ? 'Ranking Global' : 'Ranking Local';
+                    const lastUpdate = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
                     
                     rankingList.innerHTML = `
                         <div style="text-align:center;margin-bottom:1rem;color:var(--gold);font-size:0.9rem;">
-                            ${statusIcon} ${statusText}
+                            ${statusIcon} ${statusText}<br>
+                            <span style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Atualizado às ${lastUpdate}</span>
                         </div>
                         ${scores.slice(0, 20).map((score, index) => `
                             <div class="ranking-item ${index < 3 ? 'top-3' : ''}">
-                                <span class="ranking-position">#${index + 1}</span>
+                                <span class="ranking-position">${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '#' + (index + 1)}</span>
                                 <span class="ranking-name">${score.name}</span>
                                 <span class="ranking-score">Nv.${score.level} (${score.points}pts)</span>
                             </div>
@@ -692,9 +726,13 @@
                 console.error('Erro ao carregar ranking:', error);
                 const localScores = getScores();
                 rankingList.innerHTML = localScores.length > 0 ? 
+                    `<div style="text-align:center;margin-bottom:1rem;color:rgba(255,100,100,0.8);font-size:0.9rem;">
+                        ⚠️ Erro ao carregar ranking online<br>
+                        <span style="font-size:0.75rem;">Mostrando dados locais</span>
+                    </div>` +
                     localScores.map((score, index) => `
                         <div class="ranking-item ${index < 3 ? 'top-3' : ''}">
-                            <span class="ranking-position">#${index + 1}</span>
+                            <span class="ranking-position">${index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '#' + (index + 1)}</span>
                             <span class="ranking-name">${score.name}</span>
                             <span class="ranking-score">Nv.${score.level} (${score.points}pts)</span>
                         </div>
@@ -752,6 +790,15 @@
             play(clickSound);
             gameStartTime = Date.now();
             totalWordsCorrect = 0;
+            
+            // Pré-carrega o ranking ao iniciar o jogo
+            console.log('Pré-carregando ranking global...');
+            getGlobalRanking().then(() => {
+                console.log('Ranking pré-carregado!');
+            }).catch(err => {
+                console.log('Erro ao pré-carregar ranking:', err);
+            });
+            
             document.getElementById('menu').style.display = 'none';
             document.getElementById('game').style.display = 'block';
             loadWord();
@@ -760,12 +807,23 @@
         // Detector de status online/offline
         window.addEventListener('online', () => {
             isOnline = true;
-            console.log('Conectado! Ranking global disponível.');
+            rankingCache = null; // Limpa o cache para recarregar dados
+            console.log('✅ Conectado! Ranking global disponível.');
         });
         
         window.addEventListener('offline', () => {
             isOnline = false;
-            console.log('Desconectado! Usando ranking local.');
+            console.log('⚠️ Desconectado! Usando ranking local.');
+        });
+
+        // Pré-carrega ranking ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Página carregada. Pré-carregando ranking...');
+            getGlobalRanking().then(() => {
+                console.log('✅ Ranking inicial carregado!');
+            }).catch(err => {
+                console.log('⚠️ Erro ao carregar ranking inicial:', err);
+            });
         });
 
         // Event listeners para ranking
