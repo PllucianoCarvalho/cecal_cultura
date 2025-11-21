@@ -149,17 +149,85 @@
     #svg-map .regiao-nordeste .circle { fill: #42a5f5; }
     #svg-map .regiao-nordeste:hover path { fill: #003c8f !important; }
     #svg-map .regiao-nordeste:hover .circle { fill: #003c8f !important; }
+
+    /* Dropdown Games! */
+    .nav-games { position: relative; }
+    .school-name {
+        margin-left: auto;
+        font-weight: 700;
+        color: #fff;
+        padding: 8px 12px;
+        white-space: nowrap;
+    }
+    #games-button {
+        background: linear-gradient(45deg, #F2B33D, #F29727);
+        color: #401201;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(242,179,61,0.18);
+    }
+    #games-menu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        background: rgba(10,5,2,0.98);
+        border: 1px solid rgba(242,179,61,0.12);
+        border-radius: 29px;
+        padding: 8px;
+        min-width: 280px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+        z-index: 200;
+    }
+    #games-menu a {
+        display: block;
+        padding: 8px 10px;
+        color: #F2E8D5;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 700;
+    }
+    #games-menu a:hover, #games-menu a:focus {
+        background: rgba(242,179,61,0.08);
+        color: var(--p-1);
+        outline: none;
+    }
+    #games-menu[aria-hidden="false"] { display: flex; }
+    @media (max-width:640px){
+        #games-menu { right: 0; left: auto; min-width: 180px; }
+        .school-name { display: none; }
+    }
   </style>
 </head>
 <body>
 
 <!-- MENU IDÊNTICO AO INDEX.HTML -->
-<nav aria-label="Navegação principal">
+<nav aria-label="Navegação principal - Colégio Campina da Lagoa">
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="index.html#history">História</a></li>
         <li><a href="folclore-afro.html">Folclore</a></li>
         <li><a href="equipes.html">Equipes</a></li>
+        <li><a href="mapa.html">Mapa</a></li>
+
+        <!-- CHANGED: Games dropdown -->
+        <li class="nav-games">
+            <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
+            <ul id="games-menu" role="menu" aria-hidden="true">
+                <li role="none"><a role="menuitem" href="Davi_8A.html">8°A FORCA</a></li>
+                <li role="none"><a role="menuitem" href="GAMES/culinaria.html">8°B QUIZ CULINÁRIO</a></li>
+                <li role="none"><a role="menuitem" href="GAMES/vitoria_8c.html">8°C RITMOS ANCESTRAIS</a></li>
+                <li role="none"><a role="menuitem" href="GAMES/almir_flap.html">7°B FLAP BIRD</a></li>
+            </ul>
+        </li>
+        
+        <!-- Nome da escola no canto direito -->
+        <li class="school-name">Colégio Campina da Lagoa</li>
     </ul>
 </nav>
 
@@ -511,6 +579,7 @@
       margin:20px 0; display:none;">
     
     <div style="line-height:1.9; color:#444; margin-bottom:20px;">
+      <strong>Região:</strong> <span id="regiao-estado">-</span><br>
       <strong>Capital:</strong> <span id="capital-estado">-</span><br>
       <strong>População:</strong> <span id="populacao-estado">-</span><br>
       <strong>Área:</strong> <span id="area-estado">-</span><br>
@@ -530,33 +599,33 @@
   <script>
     // Dados dos estados (usando o atributo "name" que já existe no seu SVG original)
     const dados = {
-      "Acre":                  { capital: "Rio Branco",     pop: "906 mil",     area: "164.123 km²", bandeira: "AC" , curiosidade: " ", turmas:"", mascote: "" },
-      "Alagoas":                { capital: "Maceió",         pop: "3,3 mi",      area: "27.778 km²", bandeira: "AL" , curiosidade: " ", turmas:"", mascote: "" },
-      "Amapá":                  { capital: "Macapá",         pop: "877 mil",     area: "142.829 km²", bandeira: "AP" , curiosidade: " ", turmas:"", mascote: "" },
-      "Amazonas":               { capital: "Manaus",         pop: "4,2 mi",      area: "1.559.159 km²", bandeira: "AM" , curiosidade: " ", turmas:"", mascote: "Onca_pintada" },
-      "Bahia":                  { capital: "Salvador",       pop: "15 mi",       area: "564.733 km²", bandeira: "BA" , curiosidade: " ", turmas:"", mascote: "" },
-      "Ceará":                  { capital: "Fortaleza",      pop: "9,2 mi",      area: "148.920 km²", bandeira: "CE" , curiosidade: " ", turmas:"", mascote: "" },
-      "Distrito Federal":       { capital: "Brasília",       pop: "3,0 mi",      area: "5.760 km²",   bandeira: "DF" , curiosidade: " ", turmas:"", mascote: "" },
-      "Espírito Santo":         { capital: "Vitória",        pop: "4,1 mi",      area: "46.074 km²",  bandeira: "ES" , curiosidade: " ", turmas:"", mascote: "" },
-      "Goiás":                  { capital: "Goiânia",        pop: "7,2 mi",      area: "340.112 km²", bandeira: "GO" , curiosidade: " ", turmas:"", mascote: "" },
-      "Maranhão":               { capital: "São Luís",       pop: "7,1 mi",      area: "329.642 km²", bandeira: "MA" , curiosidade: " ", turmas:"", mascote: "" },
-      "Mato Grosso":            { capital: "Cuiabá",         pop: "3,7 mi",      area: "903.207 km²", bandeira: "MT" , curiosidade: " ", turmas:"", mascote: "" },
-      "Mato Grosso do Sul":     { capital: "Campo Grande",   pop: "2,8 mi",      area: "357.146 km²", bandeira: "MTS" , curiosidade: " ", turmas:"", mascote: "" },
-      "Minas Gerais":           { capital: "Belo Horizonte", pop: "21,4 mi",     area: "586.528 km²", bandeira: "MG" , curiosidade: " ", turmas:"", mascote: "" },
-      "Pará":                   { capital: "Belém",          pop: "8,7 mi",      area: "1.245.871 km²", bandeira: "PA" , curiosidade: " ", turmas:"", mascote: "" },
-      "Paraíba":                { capital: "João Pessoa",    pop: "4,0 mi",      area: "56.467 km²",  bandeira: "PB" , curiosidade: " ", turmas:"", mascote: "" },
-      "Paraná":                 { capital: "Curitiba",       pop: "11,5 mi",     area: "199.299 km²", bandeira: "PR" , curiosidade: " ", turmas:"", mascote: "" },
-      "Pernambuco":             { capital: "Recife",         pop: "9,6 mi",      area: "98.149 km²",  bandeira: "PE" , curiosidade: " ", turmas:"", mascote: "" },
-      "Piauí":                  { capital: "Teresina",       pop: "3,2 mi",      area: "251.577 km²", bandeira: "PI" , curiosidade: " ", turmas:"", mascote: "" },
-      "Rio de Janeiro":         { capital: "Rio de Janeiro", pop: "17,3 mi",     area: "43.696 km²",  bandeira: "RJ" , curiosidade: " ", turmas:"", mascote: "" },
-      "Rio Grande do Norte":    { capital: "Natal",          pop: "3,5 mi",      area: "52.811 km²",  bandeira: "RN" , curiosidade: " ", turmas:"", mascote: "" },
-      "Rio Grande do Sul":      { capital: "Porto Alegre",   pop: "11,4 mi",     area: "281.707 km²", bandeira: "RS" , curiosidade: " ", turmas:"", mascote: "" },
-      "Rondônia":               { capital: "Porto Velho",     pop: "1,8 mi",      area: "237.765 km²", bandeira: "RO" , curiosidade: " ", turmas:"", mascote: "" },
-      "Roraima":                { capital: "Boa Vista",      pop: "716 mil",     area: "224.301 km²", bandeira: "RR" , curiosidade: " ", turmas:"", mascote: "" },
-      "Santa Catarina":         { capital: "Florianópolis",  pop: "7,6 mi",      area: "95.730 km²",  bandeira: "SC" , curiosidade: " ", turmas:"", mascote: "" },
-      "São Paulo":              { capital: "São Paulo",      pop: "46,6 mi",     area: "248.222 km²", bandeira: "SP" , curiosidade: " ", turmas:"", mascote: "" },
-      "Sergipe":                { capital: "Aracaju",        pop: "2,3 mi",      area: "21.927 km²", bandeira: "SE" , curiosidade: " ", turmas:"", mascote: "" },
-      "Tocantins":              { capital: "Palmas",         pop: "1,6 mi",      area: "277.721 km²", bandeira: "TO", curiosidade: " ", turmas:"", mascote: "" }
+      "Acre":                   { regiao: "Norte", capital: "Rio Branco",         pop: "906 mil",     area: "164.123 km²", bandeira: "AC" , curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "" },
+      "Alagoas":                { regiao: "Nordeste", capital: "Maceió",          pop: "3,3 mi",      area: "27.778 km²",   bandeira: "AL" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Amapá":                  { regiao: "Norte", capital: "Macapá",             pop: "877 mil",     area: "142.829 km²",  bandeira: "AP" , curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "" },
+      "Amazonas":               { regiao: "Norte", capital: "Manaus",             pop: "4,2 mi",      area: "1.559.159 km²",bandeira: "AM" , curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "Onca_pintada" },
+      "Bahia":                  { regiao: "Nordeste", capital: "Salvador",        pop: "15 mi",       area: "564.733 km²",  bandeira: "BA" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Ceará":                  { regiao: "Nordeste", capital: "Fortaleza",       pop: "9,2 mi",      area: "148.920 km²",  bandeira: "CE" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Distrito Federal":       { regiao: "Centro-Oeste", capital: "Brasília",    pop: "3,0 mi",      area: "5.760 km²",    bandeira: "DF" , curiosidade: " ", turmas:"1ºA, 7ºC, 8ºA", mascote: "" },
+      "Espírito Santo":         { regiao: "Sudeste", capital: "Vitória",          pop: "4,1 mi",      area: "46.074 km²",   bandeira: "ES" , curiosidade: " ", turmas:"3ºB, 1ºC, 7ºB", mascote: "" },
+      "Goiás":                  { regiao: "Centro-Oeste", capital: "Goiânia",     pop: "7,2 mi",      area: "340.112 km²",  bandeira: "GO" , curiosidade: " ", turmas:"1ºA, 7ºC, 8ºA", mascote: "" },
+      "Maranhão":               { regiao: "Nordeste", capital: "São Luís",        pop: "7,1 mi",      area: "329.642 km²",  bandeira: "MA" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Mato Grosso":            { regiao: "Centro-Oeste", capital: "Cuiabá",      pop: "3,7 mi",      area: "903.207 km²",  bandeira: "MT" , curiosidade: " ", turmas:"1ºA, 7ºC, 8ºA", mascote: "" },
+      "Mato Grosso do Sul":     { regiao: "Centro-Oeste", capital: "Campo Grande",pop: "2,8 mi",      area: "357.146 km²",  bandeira: "MTS" ,curiosidade: " ", turmas:"1ºA, 7ºC, 8ºA", mascote: "" },
+      "Minas Gerais":           { regiao: "Sudeste", capital: "Belo Horizonte",   pop: "21,4 mi",     area: "586.528 km²",  bandeira: "MG" , curiosidade: " ", turmas:"3ºB, 1ºC, 7ºB", mascote: "" },
+      "Pará":                   { regiao: "Norte", capital: "Belém",              pop: "8,7 mi",      area: "1.245.871 km²",bandeira: "PA" , curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "" },
+      "Paraíba":                { regiao: "Nordeste", capital: "João Pessoa",     pop: "4,0 mi",      area: "56.467 km²",   bandeira: "PB" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Paraná":                 { regiao: "Sul", capital: "Curitiba",             pop: "11,5 mi",     area: "199.299 km²",  bandeira: "PR" , curiosidade: " ", turmas:"6ºB, 7ºA, 9ºA", mascote: "" },
+      "Pernambuco":             { regiao: "Nordeste", capital: "Recife",          pop: "9,6 mi",      area: "98.149 km²",   bandeira: "PE" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Piauí":                  { regiao: "Nordeste", capital: "Teresina",        pop: "3,2 mi",      area: "251.577 km²",  bandeira: "PI" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Rio de Janeiro":         { regiao: "Sudeste", capital: "Rio de Janeiro",   pop: "17,3 mi",     area: "43.696 km²",   bandeira: "RJ" , curiosidade: " ", turmas:"3ºB, 1ºC, 7ºB", mascote: "" },
+      "Rio Grande do Norte":    { regiao: "Nordeste", capital: "Natal",           pop: "3,5 mi",      area: "52.811 km²",   bandeira: "RN" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Rio Grande do Sul":      { regiao: "Sul", capital: "Porto Alegre",         pop: "11,4 mi",     area: "281.707 km²",  bandeira: "RS" , curiosidade: " ", turmas:"6ºB, 7ºA, 9ºA", mascote: "" },
+      "Rondônia":               { regiao: "Norte", capital: "Porto Velho",        pop: "1,8 mi",      area: "237.765 km²",  bandeira: "RO" , curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "" },
+      "Roraima":                { regiao: "Norte", capital: "Boa Vista",          pop: "716 mil",     area: "224.301 km²",  bandeira: "RR" , curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "" },
+      "Santa Catarina":         { regiao: "Sul", capital: "Florianópolis",        pop: "7,6 mi",      area: "95.730 km²",   bandeira: "SC" , curiosidade: " ", turmas:"6ºB, 7ºA, 9ºA", mascote: "" },
+      "São Paulo":              { regiao: "Sudeste", capital: "São Paulo",        pop: "46,6 mi",     area: "248.222 km²",  bandeira: "SP" , curiosidade: " ", turmas:"3ºB, 1ºC, 7ºB", mascote: "" },
+      "Sergipe":                { regiao: "Nordeste", capital: "Aracaju",         pop: "2,3 mi",      area: "21.927 km²",   bandeira: "SE" , curiosidade: " ", turmas:"2ºA, 8ºC, 6ºC", mascote: "" },
+      "Tocantins":              { regiao: "Norte", capital: "Palmas",             pop: "1,6 mi",      area: "277.721 km²",  bandeira: "TO",  curiosidade: " ", turmas:"6ºA, 8ºB, 9ºB", mascote: "" }
     };
 
     // Quando clicar em qualquer <a class="estado">
@@ -569,6 +638,7 @@
 
         if (info) {
           document.getElementById('nome-estado').textContent = nomeEstado;
+          document.getElementById('regiao-estado').textContent = info.regiao;
           document.getElementById('capital-estado').textContent = info.capital;
           document.getElementById('populacao-estado').textContent = info.pop;
           document.getElementById('area-estado').textContent = info.area;
@@ -605,6 +675,28 @@
         document.getElementById('info-panel').style.transform = 'translateX(0)';
       });
     });
+
+    // Dropdown do menu Games
+    const btn = document.getElementById('games-button');
+    const menu = document.getElementById('games-menu');
+    if(btn && menu) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = menu.getAttribute('aria-hidden') === 'false';
+        menu.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      });
+      document.addEventListener('click', () => {
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          menu.setAttribute('aria-hidden', 'true');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
   </script>
   <!-- FIM DA LÓGICA ADICIONADA -->
   

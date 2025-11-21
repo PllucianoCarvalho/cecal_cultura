@@ -61,6 +61,13 @@
 
         /* Dropdown Games! */
         .nav-games { position: relative; }
+        .school-name {
+            margin-left: auto;
+            font-weight: 700;
+            color: #fff;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
         #games-button {
             background: linear-gradient(45deg, #F2B33D, #F29727);
             color: #401201;
@@ -77,9 +84,9 @@
             left: 0;
             background: rgba(10,5,2,0.98);
             border: 1px solid rgba(242,179,61,0.12);
-            border-radius: 12px;
+            border-radius: 29px;
             padding: 8px;
-            min-width: 220px;
+            min-width: 280px;
             display: none;
             flex-direction: column;
             gap: 6px;
@@ -102,6 +109,7 @@
         #games-menu[aria-hidden="false"] { display: flex; }
         @media (max-width:640px){
             #games-menu { right: 0; left: auto; min-width: 180px; }
+            .school-name { display: none; }
         }
 
         .container {
@@ -158,21 +166,27 @@
 <body>
 
     <!-- MENU IDÊNTICO AO INDEX.HTML -->
-    <nav aria-label="Navegação principal">
+    <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="index.html#history">História</a></li>
             <li><a href="folclore-afro.html">Folclore</a></li>
-            <!--<li><a href="folclore-afro.html">Folclore</a></li>
+            <li><a href="equipes.html">Equipes</a></li>
+            <li><a href="mapa.html">Mapa</a></li>
+
+            <!-- CHANGED: Games dropdown -->
             <li class="nav-games">
                 <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
                 <ul id="games-menu" role="menu" aria-hidden="true">
-                    <li role="none"><a role="menuitem" href="ancestral-beats.html">Ancestral Beats 8°C</a></li>
-                    <li role="none"><a role="menuitem" href="jogo1.html">TOWER DEFENSE 8ºB</a></li>
-                    <li role="none"><a role="menuitem" href="culinaria.html">QUIZ CULINÁRIO 8ºB</a></li>
-                    <li role="none"><a role="menuitem" href="maracatu-memory.html">Maracatu Memory 8ºA</a></li>
+                    <li role="none"><a role="menuitem" href="Davi_8A.html">8°A FORCA</a></li>
+                    <li role="none"><a role="menuitem" href="GAMES/culinaria.html">8°B QUIZ CULINÁRIO</a></li>
+                    <li role="none"><a role="menuitem" href="GAMES/vitoria_8c.html">8°C RITMOS ANCESTRAIS</a></li>
+                    <li role="none"><a role="menuitem" href="GAMES/almir_flap.html">7°B FLAP BIRD</a></li>
                 </ul>
-            </li>-->
+            </li>
+            
+            <!-- Nome da escola no canto direito -->
+            <li class="school-name">Colégio Campina da Lagoa</li>
         </ul>
     </nav>
 
