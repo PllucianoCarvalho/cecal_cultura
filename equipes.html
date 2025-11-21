@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipes</title>
+    <meta name="description" content="Dia a dia da organização das equipes.">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --p-1: #f2b544; --p-2: #f29b30; --p-3: #d9560b; --p-4: #733009; --p-5: #bf3706;
+            --bg-soft: #fffaf0; --text: var(--p-4); --muted: rgba(115,48,9,0.72);
+            --radius: 10px; --gap: 1rem;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-soft);
+            background-image:
+                url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect width='800' height='600' fill='%23f2b544'/><rect x='0' y='0' width='120' height='120' fill='%23f29b30'/><rect x='120' y='0' width='120' height='120' fill='%23d9560b'/><rect x='240' y='0' width='120' height='120' fill='%23733009'/><rect x='360' y='0' width='120' height='120' fill='%23bf3706'/><rect x='0' y='120' width='120' height='120' fill='%23733009'/><rect x='120' y='120' width='120' height='120' fill='%23bf3706'/><circle cx=\"620\" cy=\"420\" r=\"140\" fill=\"%23f29b30\" opacity=\"0.14\"/></svg>"),
+                linear-gradient(180deg, rgba(243,186,68,0.06), rgba(255,250,240,0.04));
+            background-repeat: repeat, no-repeat;
+            background-size: 900px 675px, cover;
+            background-position: 0 0, center;
+            color: var(--text);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            padding: 1.25rem;
+            animation: mosaicMove 60s linear infinite;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+            background: radial-gradient(1200px 600px at 10% 10%, rgba(255,250,240,0.35), rgba(255,250,240,0.02) 40%),
+                        radial-gradient(900px 400px at 90% 90%, rgba(242,181,68,0.08), rgba(255,250,240,0.0) 40%);
+            mix-blend-mode: multiply; opacity: 0.95;
+        }
+
+        @keyframes mosaicMove {
+            0%   { background-position: 0 0, center; }
+            25%  { background-position: -220px -120px, center; }
+            50%  { background-position: -440px -240px, center; }
+            75%  { background-position: -220px -120px, center; }
+            100% { background-position: 0 0, center; }
+        }
+
+        /* NAVEGAÇÃO FIXA E IGUAL À INDEX */
+        nav {
+            background: linear-gradient(90deg, rgba(115,48,9,0.94), rgba(217,86,11,0.9));
+            backdrop-filter: blur(4px) saturate(1.05);
+            color: #fff; padding: 0.5rem; border-radius: 10px; margin-bottom: var(--gap);
+            position: sticky; top: 0; z-index: 60;
+        }
+        nav ul { display: flex; gap: 0.5rem; flex-wrap: wrap; list-style: none; margin: 0; padding: 0.25rem; justify-content: flex-start; }
+        nav a { color: #fff; text-decoration: none; font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 8px; transition: all .12s ease; }
+        nav a:hover, nav a:focus { background: rgba(255,255,255,0.12); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+        /* Dropdown Games! */
+        .nav-games { position: relative; }
+        #games-button {
+            background: linear-gradient(45deg, #F2B33D, #F29727);
+            color: #401201;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(242,179,61,0.18);
+        }
+        #games-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: rgba(10,5,2,0.98);
+            border: 1px solid rgba(242,179,61,0.12);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 220px;
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+            z-index: 200;
+        }
+        #games-menu a {
+            display: block;
+            padding: 8px 10px;
+            color: #F2E8D5;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+        #games-menu a:hover, #games-menu a:focus {
+            background: rgba(242,179,61,0.08);
+            color: var(--p-1);
+            outline: none;
+        }
+        #games-menu[aria-hidden="false"] { display: flex; }
+        @media (max-width:640px){
+            #games-menu { right: 0; left: auto; min-width: 180px; }
+        }
+
+        .container {
+            max-width: 900px; margin: 2rem auto; padding: 1.5rem;
+            background: rgba(255,255,255,0.96); border-radius: 12px;
+            border: 1px solid rgba(115,48,9,0.06); box-shadow: 0 8px 32px rgba(115,48,9,0.08);
+            position: relative; z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Merriweather', serif; color: var(--p-4); font-size: clamp(2rem, 5vw, 2.8rem);
+            text-align: center; margin-bottom: 0.5rem; text-shadow: 0 2px 8px rgba(115,48,9,0.1);
+        }
+
+        .subtitle { text-align: center; color: var(--muted); font-style: italic; margin-bottom: 2rem; font-size: 1.1rem; }
+
+        .back-link {
+            display: inline-block; margin-bottom: 1.5rem; padding: 0.75rem 1.5rem;
+            background: linear-gradient(180deg, var(--p-3), var(--p-5)); color: #fff;
+            text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(191,55,6,0.3); transition: all .12s ease;
+        }
+        .back-link:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 8px 20px rgba(191,55,6,0.4); }
+
+        .folclore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+
+        .folclore-card {
+            background: #fff; border-radius: var(--radius); overflow: hidden;
+            box-shadow: 0 6px 20px rgba(115,48,9,0.08); transition: all .2s ease;
+            display: flex; flex-direction: column; border: 1px solid rgba(115,48,9,0.06);
+        }
+        .folclore-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(115,48,9,0.14); }
+
+        .folclore-card img { width: 100%; height: 180px; object-fit: cover; border-bottom: 3px solid var(--p-2); }
+
+        .folclore-card .content { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .folclore-card h3 { font-family: 'Merriweather', serif; color: var(--p-4); font-size: 1.4rem; margin: 0 0 0.75rem; font-weight: 700; }
+        .folclore-card p { color: var(--muted); font-size: 0.95rem; margin: 0 0 1rem; flex-grow: 1; }
+        .folclore-card .origem { font-size: 0.8rem; color: var(--p-3); font-style: italic; margin-top: auto; font-weight: 600; }
+
+        footer {
+            text-align: center; padding: 1.5rem; background: linear-gradient(90deg, var(--p-4), var(--p-5));
+            color: #fff; border-radius: 10px; margin: 2rem auto 0; max-width: 900px;
+            font-size: 0.9rem; box-shadow: 0 8px 30px rgba(115,48,9,0.14);
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem; } .container { padding: 1rem; } .folclore-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+    </style>
+</head>
+<body>
+
+    <!-- MENU IDÊNTICO AO INDEX.HTML -->
+    <nav aria-label="Navegação principal">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#history">História</a></li>
+            <li><a href="folclore-afro.html">Folclore</a></li>
+            <!--<li><a href="folclore-afro.html">Folclore</a></li>
+            <li class="nav-games">
+                <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
+                <ul id="games-menu" role="menu" aria-hidden="true">
+                    <li role="none"><a role="menuitem" href="ancestral-beats.html">Ancestral Beats 8°C</a></li>
+                    <li role="none"><a role="menuitem" href="jogo1.html">TOWER DEFENSE 8ºB</a></li>
+                    <li role="none"><a role="menuitem" href="culinaria.html">QUIZ CULINÁRIO 8ºB</a></li>
+                    <li role="none"><a role="menuitem" href="maracatu-memory.html">Maracatu Memory 8ºA</a></li>
+                </ul>
+            </li>-->
+        </ul>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← Voltar à Home</a>
+        <h1>Equipes e Regiões</h1>
+        <p class="subtitle">Cada Região do Brasil está representada por uma equipe dedicada</p>
+
+        [insira o mapa aqui]
+    </div>
+
+    <footer>
+        <p>© <span id="year">2025</span> Folclore Brasileiro — Cultura Viva</p>
+    </footer>
+
+    <!-- Script do Dropdown Games! (igual ao index.html) -->
+    <script>
+        (function(){
+            const btn = document.getElementById('games-button');
+            const menu = document.getElementById('games-menu');
+
+            function openMenu() {
+                btn.setAttribute('aria-expanded','true');
+                menu.setAttribute('aria-hidden','false');
+            }
+            function closeMenu() {
+                btn.setAttribute('aria-expanded','false');
+                menu.setAttribute('aria-hidden','true');
+            }
+            function toggleMenu() {
+                if (menu.getAttribute('aria-hidden') === 'true') openMenu(); else closeMenu();
+            }
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+            document.addEventListener('click', (e) => {
+                if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        })();
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
