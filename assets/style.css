@@ -2,11 +2,11 @@
 
 /* Paleta fornecida */
 :root {
-	--p-1: #f2b544;
-	--p-2: #f29b30;
-	--p-3: #d9560b;
-	--p-4: #733009;
-	--p-5: #bf3706;
+	--p-1: #03178C;
+	--p-2: #04268C;
+	--p-3: #0D8C39;
+	--p-4: #F2DCC2;
+	--p-5: #0D0D0D;
 
 	--bg-soft: #fffaf0;
 
@@ -446,4 +446,96 @@ header .banner {
 .lead {
 	font-weight: 700; /* negrito */
 	/* mantive espaçamento/legibilidade; ajuste se quiser outra aparência */
+}
+
+/* Carrossel de imagens do banner */
+.carousel-header {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(115,48,9,0.10);
+}
+.carousel-inner-header {
+    width: 100%;
+    height: 320px;
+    display: flex;
+    position: relative;
+}
+.carousel-item-header {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+.carousel-item-header.active {
+    opacity: 1;
+    z-index: 2;
+}
+.header-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+}
+.header-overlay {
+    position: absolute;
+    bottom: 18px; left: 24px;
+    background: rgba(115,48,9,0.72);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(115,48,9,0.18);
+}
+.overlay-text {
+    display: block;
+}
+
+/* Indicadores do carrossel do banner - formato Bootstrap */
+.carousel-indicators-header {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    margin-right: 15%;
+    margin-left: 15%;
+    list-style: none;
+    gap: 12px;
+}
+.carousel-indicators-header li.carousel-indicator-header {
+    width: 15px;
+    height: 15px;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    opacity: 1;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+    display: inline-block;
+}
+.carousel-indicators-header li.carousel-indicator-header.active {
+    background: #f2b33d;
+    border: 2px solid #733009;
+}
+@media (max-width: 640px) {
+    .carousel-indicators-header {
+        bottom: 8px;
+        gap: 8px;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .carousel-indicators-header li.carousel-indicator-header {
+        width: 10px;
+        height: 10px;
+    }
 }
