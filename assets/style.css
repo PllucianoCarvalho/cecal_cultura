@@ -136,7 +136,7 @@ section {
 	padding: 1rem;
 	/*background: rgba(255,255,255,0.9);*/ /*cor do fundo do box com imagem do logo*/
 	border-radius: 10px;
-	border: 1px solid rgba(115,48,9,0.06);
+	border: 1px solid rgba(115,48,9,0.00);
 }
 
 /* Linha do tempo */
