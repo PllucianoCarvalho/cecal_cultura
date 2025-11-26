@@ -15,6 +15,23 @@
             gap: 2rem;
             align-items: center;
             width: 100%;
+    }
+        .main-flex box-1{
+            box-shadow: 0 8px 32px rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: center;
+            width: 100%;
+    }
+        .main-flex box-2{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: center;
+            width: 100%;
         }
         #school-summary {
             width: 66%;
@@ -313,7 +330,7 @@
      </header>
     
     <main id="main">
-        <div class="main-flex">
+        <div class="main-flex box-1">
             <section id="school-summary">
                 <h2>Resumo Histórico</h2>
                 <p>
@@ -324,7 +341,18 @@
                 <img src="assets/images/logo_escola_1.png" alt="Logo CECAL" class="logo-img">
             </div>
         </div>
-    </main>
+        <div class="main-flex box-2">
+            <div class="logo-box" style="order:1;">
+                <img src="assets/images/logo_escola_1.png" alt="Logo CECAL" class="logo-img">
+            </div>
+            <section id="school-summary" style="order:2;">
+                <h2>Nossa Grade</h2>
+                <p>
+                    horários 
+                </p>
+            </section>
+        </div>
+    </main_1>
             
     <!-- Seção de História -->
     <footer>
