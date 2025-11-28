@@ -1,21 +1,24 @@
-
 #games-menu a {
 	position: relative !important;
 	z-index: 999 !important;
 }
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* Paleta fornecida */
+/* ===================== PALETA OFICIAL ===================== */
 :root {
-	--p-1: #03178C;
-	--p-2: #1473e6;
-	--p-3: #0D8C39;
-	--p-4: #0D0D0D;
-	--p-5: #0D0D0D;
+	--p-1: #03178C;      /* azul escuro */
+	--p-2: #1473e6;      /* azul claro */
+	--p-3: #0D8C39;      /* verde */
+	--p-4: #F2DCC2;      /* bege claro */
+	--p-5: #0D0D0D;      /* preto */
 
-	--bg-soft: var(--p-4);
+	--gold-1: #F2B33D;
+	--gold-2: #F29727;
+	--text-gold: #401201;
+
+	--bg-soft: #fffaf0;
 	--text: var(--p-5);
-	--muted: rgba(13,13,13,0.72); /* baseado em preto da paleta */
+	--muted: rgba(20,115,230,0.72);
 
 	--radius: 8px;
 	--gap: 1rem;
@@ -25,28 +28,23 @@
 * { box-sizing: border-box; }
 html,body { height:100%; }
 body {
-	/* base suave */
 	background-color: var(--bg-soft);
 	background-image:
 		url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect width='800' height='600' fill='%2303178C'/><rect x='0' y='0' width='120' height='120' fill='%231473e6'/><rect x='120' y='0' width='120' height='120' fill='%230D8C39'/><rect x='240' y='0' width='120' height='120' fill='%23F2DCC2'/><rect x='360' y='0' width='120' height='120' fill='%2303178C'/><rect x='0' y='120' width='120' height='120' fill='%230D8C39'/><rect x='120' y='120' width='120' height='120' fill='%23F2DCC2'/><circle cx='620' cy='420' r='140' fill='%231473e6' opacity='0.14'/></svg>"),
 		linear-gradient(180deg, rgba(3,23,140,0.06), rgba(20,115,230,0.04));
-	/* repete o mosaico para cobrir a tela */
 	background-repeat: repeat, no-repeat;
-	/* ajustar escala do mosaico (experimente valores maiores/menores) */
 	background-size: 900px 675px, cover;
-	/* posição inicial */
 	background-position: 0 0, center;
 	color: var(--text);
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	font-family: 'Roboto', sans-serif;
 	line-height: 1.6;
 	margin: 0;
 	padding: 1.25rem;
-
-	/* animação suave do mosaico (movimento lento) */
 	animation: mosaicMove 60s linear infinite;
+	min-height: 100vh;
+	position: relative;
 }
 
-/* pseudo-camada para suavizar e melhorar leitura (leve vinheta / blur simulado) */
 body::before {
 	content: "";
 	position: fixed;
@@ -59,7 +57,6 @@ body::before {
 	opacity: 0.95;
 }
 
-/* animação que desloca o mosaico horizontal/verticalmente de forma bem lenta */
 @keyframes mosaicMove {
 	0%   { background-position: 0 0, center; }
 	25%  { background-position: -220px -120px, center; }
@@ -68,24 +65,22 @@ body::before {
 	100% { background-position: 0 0, center; }
 }
 
-/* garantir que elementos de conteúdo fiquem acima do overlay */
 nav, main, section, footer {
 	position: relative;
 	z-index: 10;
 }
 
-/* Ajustes de contraste: tornar nav e main levemente mais opacos para legibilidade */
+/* NAVEGAÇÃO FIXA */
 nav {
-	background: linear-gradient(90deg, var(--p-2), var(--p-2));
-	color: var(--p-5);
+	background: var(--p-2);
+	color: #fff;
 	padding: 0.5rem;
 	border-radius: 10px;
 	margin-bottom: var(--gap);
-
-	/* novo: fixa no topo ao rolar */
 	position: sticky;
 	top: 0;
 	z-index: 60;
+	backdrop-filter: blur(4px) saturate(1.05);
 }
 nav ul {
 	display: flex;
@@ -96,32 +91,29 @@ nav ul {
 	padding: 0.25rem;
 	align-items: center;
 	justify-content: flex-start;
-	height: 100%;
 }
 nav a {
-	color: var(--p-5);
+	color: #fff;
 	text-decoration: none;
 	font-weight: 600;
 	padding: 0.5rem 0.75rem;
 	border-radius: 8px;
 	transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
-	z-index: 60;
 }
 nav a:hover, nav a:focus {
-	background: rgba(20,115,230,0.12);
+	background: rgba(255,255,255,0.12);
 	transform: translateY(-2px);
 	box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 	outline: none;
 }
 
-/* Conteúdo principal */
 main {
-	max-width: 1200px;
+	max-width: 100%;
 	margin: 0 auto;
 	padding: 1rem;
-	background: rgba(255,255,255,0.92); /* um pouco mais opaco que antes */
+	background: rgba(255,255,255,0.92);
 	border-radius: 10px;
-	padding-top: 0.5rem; /* leve espaçamento extra para separar do nav */
+	padding-top: 0.5rem;
 }
 main h1 {
 	color: var(--p-4);
@@ -129,21 +121,16 @@ main h1 {
 	margin-top: 0;
 }
 
-/* Seções */
 section {
 	max-width: 1200px;
 	margin: 1rem auto;
 	padding: 1rem;
-	/*background: rgba(255,255,255,0.9);*/ /*cor do fundo do box com imagem do logo*/
 	border-radius: 10px;
 	border: 1px solid rgba(115,48,9,0.00);
 }
 
-/* Linha do tempo */
-.timeline {
-	display: grid;
-	gap: 1rem;
-}
+/* LINHA DO TEMPO */
+.timeline { display: grid; gap: 1rem; }
 .timeline-track {
 	display: flex;
 	gap: 0.6rem;
@@ -158,7 +145,6 @@ section {
 .timeline-track::-webkit-scrollbar { height: 10px; }
 .timeline-track::-webkit-scrollbar-thumb { background: rgba(115,48,9,0.18); border-radius: 8px; }
 
-/* itens da timeline */
 .timeline-item {
 	flex: 0 0 auto;
 	min-width: 88px;
@@ -172,12 +158,7 @@ section {
 	transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
 	scroll-snap-align: center;
 }
-.timeline-item:hover,
-.timeline-item:focus {
-	transform: translateY(-4px);
-	box-shadow: 0 10px 26px rgba(115,48,9,0.12);
-	outline: none;
-}
+.timeline-item:hover, .timeline-item:focus { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(115,48,9,0.12); }
 .timeline-item.active {
 	background: linear-gradient(180deg, var(--p-2), var(--p-3));
 	color: #fff;
@@ -185,7 +166,6 @@ section {
 	border: none;
 }
 
-/* Painel que mostra o evento */
 .timeline-panel {
 	display: flex;
 	gap: 1.5rem;
@@ -198,56 +178,27 @@ section {
 	flex-wrap: wrap;
 }
 .timeline-panel img {
-	width: 350px;           /* ← TAMANHO PADRÃO PARA TODAS AS IMAGENS */
-	height: 300px;          /* ← TAMANHO PADRÃO PARA TODAS AS IMAGENS */
+	width: 350px;
+	height: 300px;
 	object-fit: cover;
 	border-radius: 8px;
 	box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 	flex-shrink: 0;
-	display: none;          /* oculto até ser carregado via JS */
+	display: none;
 }
-.timeline-panel .text-content {
-	flex: 1;
-	min-width: 280px;
-}
-.timeline-panel .text-content h3 {
-	margin: 0 0 0.5rem;
-	font-size: 1.4rem;
-	color: var(--p-4);
-}
-.timeline-panel .text-content p {
-	margin: 0;
-	line-height: 1.6;
-	color: var(--muted);
-}
+.timeline-panel .text-content { flex: 1; min-width: 280px; }
+.timeline-panel .text-content h3 { margin: 0 0 0.5rem; font-size: 1.4rem; color: var(--p-4); }
+.timeline-panel .text-content p { margin: 0; line-height: 1.6; color: var(--muted); }
 
-/* Responsivo: em telas pequenas, imagem ocupa 100% */
 @media (max-width: 640px) {
-	.timeline-panel {
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-	.timeline-panel img {
-		width: 100%;
-		max-width: 300px;
-		height: auto;
-		display: block;
-	}
+	.timeline-panel { flex-direction: column; align-items: center; text-align: center; }
+	.timeline-panel img { width: 100%; max-width: 300px; height: auto; display: block; }
 }
 
-/* Formulário */
-form {
-	display: grid;
-	gap: 0.6rem;
-}
-label {
-	font-weight: 600;
-	color: var(--text);
-}
-input[type="text"],
-input[type="email"],
-textarea {
+/* FORMULÁRIO */
+form { display: grid; gap: 0.6rem; }
+label { font-weight: 600; color: var(--text); }
+input[type="text"], input[type="email"], textarea {
 	width: 100%;
 	padding: 0.6rem;
 	border-radius: 8px;
@@ -263,7 +214,6 @@ input:focus, textarea:focus {
 	box-shadow: 0 6px 20px rgba(217,86,11,0.12);
 }
 
-/* Botões */
 button[type="submit"] {
 	background: linear-gradient(180deg, var(--p-3), var(--p-5));
 	color: #fff;
@@ -277,267 +227,112 @@ button[type="submit"] {
 button[type="submit"]:hover, button[type="submit"]:focus {
 	transform: translateY(-2px);
 	filter: brightness(1.02);
-	outline: 3px solid rgba(242,155,48,0.18);
 }
 
-/* Nota do formulário */
-.form-note {
-	font-size: 0.9rem;
-	color: var(--muted);
-	margin-top: 0.5rem;
+/* HEADER & BANNER */
+header .banner figure { margin: 0; padding: 0; width: 100%; display: block; }
+.header-image { width: 100%; height: auto; display: block; border-radius: var(--radius); object-fit: cover; max-height: 500px; }
+@media (min-width: 1400px) { .header-image { max-height: 600px; } }
+@media (max-width: 768px) { .header-image { max-height: 400px; } }
+@media (max-width: 480px) { .header-image { max-height: 300px; border-radius: 6px; } }
+
+.header-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 30; text-align: center; padding: 1rem; }
+.overlay-text {
+	position: absolute; left: 50%; top: 50%; transform: translateY(-50%) scale(0.98);
+	padding: 0.25rem 0.75rem; border-radius: 8px; font-weight: 900; color: var(--p-1);
+	text-shadow: 0 6px 18px rgba(115,48,9,0.55); opacity: 0; visibility: hidden;
+	transition: opacity .6s cubic-bezier(.2,.9,.2,1), transform .6s cubic-bezier(.2,.9,.2,1);
+	font-family: "Merriweather", serif; font-size: clamp(2rem, 6.6vw, 4rem); line-height: 1; text-align: left; max-width: 46vw;
+}
+.overlay-text.visible { opacity: 1; visibility: visible; transform: translateY(-50%) scale(1); }
+
+@media (max-width: 700px) {
+	.overlay-text { left: 50%; transform: translate(-50%, -50%) scale(0.98); text-align: center; max-width: 90%; font-size: clamp(1.5rem, 6.6vw, 2.4rem); }
+	.overlay-text.visible { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Rodapé */
+/* CARROSSEL HEADER */
+.carousel-header { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; border-radius: 18px; box-shadow: 0 8px 32px rgba(115,48,9,0.10); }
+.carousel-inner-header { width: 100%; height: 320px; display: flex; position: relative; }
+.carousel-item-header { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.7s ease; }
+.carousel-item-header.active { opacity: 1; z-index: 2; }
+.header-image { width: 100%; height: 320px; object-fit: cover; border-radius: 18px; display: block; }
+
+/* PÁGINA FOLCLORE */
+.container {
+	max-width: 900px; margin: 2rem auto; padding: 1.5rem;
+	background: #fffaf0; border-radius: 12px;
+	border: 1px solid rgba(20,115,230,0.08); box-shadow: 0 8px 32px rgba(20,115,230,0.08);
+	position: relative; z-index: 10;
+}
+h1 { font-family: 'Merriweather', serif; color: var(--p-4); font-size: clamp(2rem, 5vw, 2.8rem); text-align: center; margin-bottom: 0.5rem; text-shadow: 0 2px 8px rgba(115,48,9,0.1); }
+.subtitle { text-align: center; color: rgba(20,115,230,0.72); font-style: italic; margin-bottom: 2rem; font-size: 1.1rem; }
+
+.back-link {
+	display: inline-block; margin-bottom: 1.5rem; padding: 0.75rem 1.5rem;
+	background: linear-gradient(180deg, var(--p-3), var(--p-5)); color: #fff;
+	text-decoration: none; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+	box-shadow: 0 4px 12px rgba(191,55,6,0.3); transition: all .12s ease;
+}
+.back-link:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 8px 20px rgba(191,55,6,0.4); }
+
+.folclore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.folclore-card {
+	background: #fff; border-radius: 10px; overflow: hidden;
+	box-shadow: 0 6px 20px rgba(20,115,230,0.08); transition: all .2s ease;
+	display: flex; flex-direction: column; border: 1px solid rgba(20,115,230,0.06);
+}
+.folclore-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(115,48,9,0.14); }
+.folclore-card img { width: 100%; height: 180px; object-fit: cover; border-bottom: 3px solid var(--p-2); }
+.folclore-card .content { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+.folclore-card h3 { font-family: 'Merriweather', serif; color: var(--p-4); font-size: 1.4rem; margin: 0 0 0.75rem; font-weight: 700; }
+.folclore-card p { color: rgba(20,115,230,0.72); font-size: 0.95rem; margin: 0 0 1rem; flex-grow: 1; }
+.folclore-card .origem { font-size: 0.8rem; color: var(--p-3); font-style: italic; margin-top: auto; font-weight: 600; }
+
+/* GRADE / BNCC */
+th { background: var(--p-2); color: #fff; }
+.bncc { background: var(--p-2); }
+.diversificada { background: var(--gold-2); }
+.flexivel { background: var(--p-1); }
+
+/* DROPDOWN GAMES */
+.school-name { margin-left: auto; font-weight: 700; color: #fff; padding: 1px 12px; white-space: nowrap; }
+#games-button { background: linear-gradient(45deg, var(--gold-1), var(--gold-2)); color: var(--text-gold); border: none; padding: 8px 12px; border-radius: 999px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(242,179,61,0.18); }
+#games-menu { position: absolute; top: calc(100% + 8px); left: 0; background: rgba(0,0,0,0.98); border: 1px solid rgba(242,179,61,0.12); border-radius: 29px; padding: 20px 16px; min-width: 320px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,0.6); z-index: 9999; }
+#games-menu[aria-hidden="false"] { display: grid; align-content: center; justify-content: flex-start; grid-template-columns: 1fr 1fr; gap: 10px 24px; justify-items: start; }
+#games-menu a { display: inline-block; padding: 10px 18px; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; text-align: left; min-width: max-content; position: relative; z-index: 600; }
+#games-menu a:hover, #games-menu a:focus { background: rgba(242,179,61,0.08); color: var(--gold-1); outline: none; }
+
+/* CARROSSEL DAS EQUIPES */
+.carousel { position: relative; width: 100%; max-width: 900px; margin: 2rem auto; border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(115,48,9,0.18); height: 240px; }
+.carousel-inner { position: relative; width: 100%; height: 100%; }
+.carousel-item { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease; }
+.carousel-item.active { opacity: 1; }
+.carousel-item img { width: 225px; height: 300px; object-fit: contain; display: block; margin: 0 auto; }
+.team-description { margin-top: 1.5rem; padding: 1.5rem; background: rgba(255,250,240,0.7); border-radius: var(--radius); text-align: center; font-size: 1.1rem; color: var(--muted); font-style: italic; border: 1px solid rgba(115,48,9,0.08); }
+
+/* FOOTER */
 footer {
 	max-width: 1200px;
 	margin: 1.25rem auto 0;
 	padding: 0.85rem;
-	background: linear-gradient(90deg, var(--p-4), var(--p-5));
+	background: linear-gradient(90deg, var(--p-2), var(--p-1));
 	color: #fff;
 	border-radius: 10px;
 	text-align: center;
 	box-shadow: 0 8px 30px rgba(115,48,9,0.14);
 }
-footer p { margin: 0; }
 
-/* Estilos para o header e banner */
-header {
-	width: 100%;
-	margin: 0 auto var(--gap);
-	position: relative;
-}
-
-header .banner {
-	position: relative;
-	width: 100%;
-	margin: 0;
-}
-
-header .banner figure {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	display: block;
-}
-
-/* Imagem do header responsiva */
-.header-image {
-	width: 100%;
-	height: auto;
-	display: block;
-	border-radius: var(--radius);
-	object-fit: cover;
-	max-height: 500px;
-}
-
-/* Ajuste para telas grandes */
-@media (min-width: 1400px) {
-	.header-image {
-		max-height: 600px;
-	}
-}
-
-/* Ajuste para telas médias */
-@media (max-width: 768px) {
-	.header-image {
-		max-height: 400px;
-	}
-}
-
-/* Ajuste para telas pequenas */
-@media (max-width: 480px) {
-	.header-image {
-		max-height: 300px;
-		border-radius: 6px;
-	}
-}
-
-/* Overlay central sobre a imagem do header (textos sobrepostos, maior tamanho e transição suave) */
-.header-overlay {
-	position: absolute;
-	inset: 0; /* ocupa o mesmo contêiner do figure */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	pointer-events: auto;
-	z-index: 30;
-	text-align: center;
-	padding: 1rem;
-}
-header .banner {
-	position: relative; /* garante referência para absolute */
-	width: 100%;
-}
-
-.overlay-text {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	/* inicia em 50% e cresce para a direita (não centraliza horizontalmente) */
-	transform: translateY(-50%) scale(0.98);
-	display: block;
-	padding: 0.25rem 0.75rem;
-	border-radius: 8px;
-	font-weight: 900;
-	/* texto em tons claros da paleta */
-	color: var(--p-1);
-	/* sombra suave em tom marrom escuro para manter legibilidade */
-	text-shadow: 0 6px 18px rgba(115,48,9,0.55);
-	opacity: 0;
-	visibility: hidden;
-	pointer-events: none;
-	transition: opacity .6s cubic-bezier(.2,.9,.2,1), transform .6s cubic-bezier(.2,.9,.2,1);
-	font-family: "Merriweather", serif;
-	/* fonte maior e responsiva */
-	font-size: clamp(2rem, 6.6vw, 4rem);
-	line-height: 1;
-	text-align: left;
-	max-width: 46vw; /* limita a largura para permanecer dentro da metade direita */
-}
-
-/* estado visível: fade in e leve scale */
-.overlay-text.visible {
-	opacity: 1;
-	visibility: visible;
-	transform: translateY(-50%) scale(1);
-}
-
-/* em telas pequenas, centraliza novamente para melhor leitura */
-@media (max-width: 700px) {
-	.overlay-text {
-		left: 50%;
-		transform: translate(-50%, -50%) scale(0.98);
-		text-align: center;
-		max-width: 90%;
-		font-size: clamp(1.5rem, 6.6vw, 2.4rem);
-	}
-	.overlay-text.visible {
-		transform: translate(-50%, -50%) scale(1);
-	}
-}
-
-/* esconder a segunda língua do leitor de AT quando não ativa */
-.lang-yo[aria-hidden="true"] { position: relative; }
-
-/* acessibilidade: foco visível para permitir alternância via teclado (mantido no container) */
-.header-overlay:focus { outline: 3px solid rgba(242,155,48,0.22); border-radius: 10px; }
-
-/* reduzir movimento se preferido */
-@media (prefers-reduced-motion: reduce) {
-	.overlay-text { transition: none; transform: translate(-50%, -50%) scale(1); }
-}
-
-/* Pequenas melhorias responsivas */
-@media (max-width: 600px) {
+/* RESPONSIVO */
+@media (max-width: 640px) {
 	body { padding: 1rem; }
 	nav ul { gap: 0.35rem; }
 	main, section, footer { padding: 0.85rem; }
-
-	/* Ajuste do logo em telas pequenas */
-	.logo {
-		max-width: 100px;
-		margin-bottom: 0.5rem;
-	}
+	.carousel { height: 150px; }
+	.carousel-item img { height: 150px; }
+	.container { padding: 1rem; }
+	.folclore-grid { grid-template-columns: max-content; }
+	#games-menu { right: 0; left: auto; min-width: 180px; }
+	.school-name { display: none; }
 }
-
-@media (max-width: 700px) {
-	.timeline-item { min-width: 80px; padding: 0.5rem; }
-	.timeline-panel h3 { font-size: 1rem; }
-}
-
-.lead {
-	font-weight: 700; /* negrito */
-	/* mantive espaçamento/legibilidade; ajuste se quiser outra aparência */
-}
-
-/* Carrossel de imagens do banner */
-.carousel-header {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius: 18px;
-    box-shadow: 0 8px 32px rgba(115,48,9,0.10);
-}
-.carousel-inner-header {
-    width: 100%;
-    height: 320px;
-    display: flex;
-    position: relative;
-}
-.carousel-item-header {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    opacity: 0;
-    transition: opacity 0.7s ease;
-}
-.carousel-item-header.active {
-    opacity: 1;
-    z-index: 2;
-}
-.header-image {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 18px;
-    display: block;
-}
-.header-overlay {
-    position: absolute;
-    bottom: 18px; left: 24px;
-    background: rgba(115,48,9,0.72);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    box-shadow: 0 4px 16px rgba(115,48,9,0.18);
-}
-.overlay-text {
-    display: block;
-}
-
-/* Indicadores do carrossel do banner - formato Bootstrap */
-.carousel-indicators-header {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 15;
-    display: flex;
-    justify-content: center;
-    padding-left: 0;
-    margin-right: 15%;
-    margin-left: 15%;
-    list-style: none;
-    gap: 12px;
-}
-.carousel-indicators-header li.carousel-indicator-header {
-    width: 15px;
-    height: 15px;
-    background-color: #fff;
-    border: 2px solid #fff;
-    border-radius: 100%;
-    opacity: 1;
-    cursor: pointer;
-    transition: background 0.2s, border 0.2s;
-    display: inline-block;
-}
-.carousel-indicators-header li.carousel-indicator-header.active {
-    background: #f2b33d;
-    border: 2px solid #733009;
-}
-@media (max-width: 640px) {
-    .carousel-indicators-header {
-        bottom: 8px;
-        gap: 8px;
-        margin-right: 5%;
-        margin-left: 5%;
-    }
-    .carousel-indicators-header li.carousel-indicator-header {
-        width: 10px;
-        height: 10px;
-    }
-}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

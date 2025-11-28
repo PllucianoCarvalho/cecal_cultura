@@ -1,6 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+        <style>
+        .modal-grade {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(20, 115, 230, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+        .modal-grade.active {
+            display: flex;
+        }
+        .modal-content-grade {
+            background: #fff;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(20,115,230,0.18);
+            padding: 2.5rem 2rem 2rem 2rem;
+            color: #0D0D0D;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .modal-content-grade h2, .modal-content-grade h3 {
+            color: #1473e6;
+            margin-top: 1.5rem;
+        }
+        .modal-content-grade table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+        }
+        .modal-content-grade th {
+            background: #1473e6;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+        }
+        .modal-content-grade td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-content-grade tr:nth-child(even) {
+            background: #f2f6fa;
+        }
+        .modal-content-grade .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .modal-content-grade .bncc { background: #1473e6; }
+        .modal-content-grade .diversificada { background: #F29727; }
+        .modal-content-grade .flexivel { background: #03178C; }
+        .modal-close-grade {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            background: #F29727;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 8px 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(242,179,61,0.18);
+        }
+        @media (max-width: 600px) {
+            .modal-content-grade { padding: 1rem; font-size: 0.95rem; }
+            .modal-close-grade { top: 12px; right: 12px; }
+        }
+        </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Folclore Brasileiro</title>
@@ -15,7 +96,7 @@
             gap: 2rem;
             align-items: center;
             width: 100%;
-    }
+        }
         .main-flex box-1{
             box-shadow: 0 8px 32px rgba(0,0,0,0.9);
             display: flex;
@@ -24,7 +105,7 @@
             gap: 2rem;
             align-items: center;
             width: 100%;
-    }
+        }
         .main-flex box-2{
             display: flex;
             align-items: center;
@@ -39,6 +120,18 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+        }
+        .saiba-mais-btn{
+            background: linear-gradient(45deg, #03178C, #1473e6);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(242,179,61,0.18);
+            align-self: flex-start;
+            margin-top: auto;
         }
         .logo-box {
             width: 33%;
@@ -281,8 +374,6 @@
             <li><a href="campina_historia.html">Nossa história</a></li>
             <li><a href="grade.html">Nossa Grade</a></li>
             <li><a href="feirao.html">Eventos</a></li>
-            
-
             <!-- CHANGED: Games dropdown -->
             <li class="nav-games">
                 <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
@@ -336,7 +427,7 @@
                 <p>
                 Fundado em 1969, o Colégio Campina da Lagoa surgiu para atender à crescente demanda educacional da cidade, graças ao empenho da comunidade e lideranças locais. Inicialmente funcionando em prédio provisório, mudou-se em 1972 para sua sede atual, expandindo gradualmente sua estrutura e oferta de cursos. Em 2021, tornou-se Escola em Tempo Integral, após consulta pública e apoio das famílias, buscando superar desafios impostos pela pandemia e promover o desenvolvimento integral dos estudantes.
                 </p>
-                <button class="saiba-mais-btn" onclick="window.location.href='grade.html'">Saiba mais</button>
+                <button class="saiba-mais-btn" id="saiba-mais-btn" onclick="window.location.href='campina_historia.html'">Saiba mais</button>
             </section>
             <div class="logo-box">
                 <img src="assets/images/logo_escola_1.png" alt="Logo CECAL" class="logo-img">
@@ -349,9 +440,9 @@
             <section id="school-summary" style="order:2;">
                 <h2>Nossa Grade Curricular</h2>
                 <p>
-                port 
+                Clique e conheça nossa grade curricular atualizada, alinhada à BNCC e com diferenciais que preparam nossos alunos para os desafios do século XXI.
                 </p>
-                <button class="saiba-mais-btn" onclick="window.location.href='grade.html'">Saiba mais</button>
+                <button class="saiba-mais-btn" id="saiba-mais-btn" onclick="window.location.href='grade.html'">Saiba mais</button>
             </section>
         </div>
     </main_1>
@@ -429,7 +520,5 @@
             setInterval(nextSlide, 2500);
         })();
     </script>
-
-
 </body>
 </html>
