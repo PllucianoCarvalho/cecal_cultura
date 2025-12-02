@@ -1,375 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-        <style>
-        .modal-grade {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(20, 115, 230, 0.85);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-        }
-        .modal-grade.active {
-            display: flex;
-        }
-        .modal-content-grade {
-            background: #fff;
-            border-radius: 20px;
-            max-width: 900px;
-            width: 95vw;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 32px rgba(20,115,230,0.18);
-            padding: 2.5rem 2rem 2rem 2rem;
-            color: #0D0D0D;
-            font-family: 'Roboto', Arial, sans-serif;
-        }
-        .modal-content-grade h2, .modal-content-grade h3 {
-            color: #1473e6;
-            margin-top: 1.5rem;
-        }
-        .modal-content-grade table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            font-size: 1rem;
-        }
-        .modal-content-grade th {
-            background: #1473e6;
-            color: #fff;
-            padding: 10px;
-            text-align: left;
-        }
-        .modal-content-grade td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .modal-content-grade tr:nth-child(even) {
-            background: #f2f6fa;
-        }
-        .modal-content-grade .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #fff;
-        }
-        .modal-content-grade .bncc { background: #1473e6; }
-        .modal-content-grade .diversificada { background: #F29727; }
-        .modal-content-grade .flexivel { background: #03178C; }
-        .modal-close-grade {
-            position: absolute;
-            top: 24px;
-            right: 32px;
-            background: #F29727;
-            color: #fff;
-            border: none;
-            border-radius: 999px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            padding: 8px 18px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(242,179,61,0.18);
-        }
-        @media (max-width: 600px) {
-            .modal-content-grade { padding: 1rem; font-size: 0.95rem; }
-            .modal-close-grade { top: 12px; right: 12px; }
-        }
-        </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Folclore Brasileiro</title>
-    <meta name="description" content="Portal sobre o folclore e a história do Brasil: lendas, mitos e memória cultural.">
-    <!-- Todas as regras de estilo foram movidas para dentro da tag <style> abaixo -->
-    <!-- ADDED: estilos rápidos para o menu Games -->
-    <style>
-    .main-flex {
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            gap: 2rem;
-            align-items: center;
-            width: 100%;
-        }
-        .main-flex box-1{
-            box-shadow: 0 8px 32px rgba(0,0,0,0.9);
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            gap: 2rem;
-            align-items: center;
-            width: 100%;
-        }
-        .main-flex box-2{
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            gap: 2rem;
-            align-items: center;
-            width: 100%;
-        }
-        #school-summary {
-            width: 66%;
-            box-sizing: border-box;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .saiba-mais-btn{
-            background: linear-gradient(45deg, #03178C, #1473e6);
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 999px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(242,179,61,0.18);
-            align-self: flex-start;
-            margin-top: auto;
-        }
-        .logo-box {
-            width: 33%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: auto;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-        .logo-img {
-            max-width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-        /* dropdown games */
-        .game-name {
-            color: #F29727 !important;
-        }
-        .nav-games { position: relative; }
-        
-        /* Estilo para o nome da escola no canto direito */
-        nav ul {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-        }
-        .school-name {
-            margin-left: auto;
-            font-weight: 700;
-            color: #fff;
-            padding: 1px 12px;
-            white-space: nowrap;
-        }
-        
-        #games-button {
-            background: linear-gradient(45deg, #F2B33D, #F29727);
-            color: #401201;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 999px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(242,179,61,0.18);
-        }
-        #games-menu {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            background: rgba(0, 0, 0, 0.98);
-            border: 1px solid rgba(242,179,61,0.12);
-            border-radius: 29px;
-            padding: 120px 16px;        /* ← mudei de 130px para 20px (ou o valor que preferir) */
-            min-width: 320px;
-            display: none;             /* mantém escondido quando fechado */
-            box-shadow: 0 12px 32px rgba(0,0,0,0.6);
-            z-index: 9999;             /* ← z-index bem alto garante que fique por cima de tudo */
-        }
-        #games-menu[aria-hidden="false"] {
-            display: grid;
-            align-content: center;
-            justify-content: flex-start;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px 24px;
-            justify-items: start;
-        }
-        #games-menu a {
-            display: inline-block;
-            padding: 10px 18px;
-            color: var(--light);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            text-align: left;
-            min-width: max-content;
-            position: relative;
-            z-index: 600;
-        }
-        #games-menu a:hover, #games-menu a:focus {
-            background: rgba(242,179,61,0.08);
-            color: var(--gold);
-            outline: none;
-        }
-        #games-menu[aria-hidden="false"] { display: flex; }
-        /* responsivo */
-        @media (max-width:640px){
-            #games-menu { right: 0; left: auto; min-width: 180px; }
-            .school-name { display: none; } /* Esconde o nome da escola em telas pequenas */
-        }
-
-
-
-        /* NOVO: Estilos para a seção de história */
-        #history {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            color: #333;
-        }
-
-        #history h2 {
-            color: #1473e6;
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .history-content h3 {
-            color: #1473e6;
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem;
-            border-bottom: 3px solid rgba(242, 179, 61, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .history-content h4 {
-            color: #1473e6;
-            font-size: 1.4rem;
-            margin: 1.5rem 0 0.8rem;
-        }
-
-        .history-content p {
-            line-height: 1.8;
-            margin-bottom: 1.2rem;
-            text-align: justify;
-            color: #444;
-        }
-
-        .history-content ul {
-            margin: 1rem 0;
-            padding-left: 2rem;
-        }
-
-        .history-content li {
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-            color: #444;
-        }
-
-        .history-content strong {
-            color: #1473e6;;
-            font-weight: 700;
-        }
-
-        .timeline-events {
-            display: grid;
-            gap: 1.5rem;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border-left: 5px solid #F29727;
-        }
-
-        .event {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .event:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
-        }
-
-        .event .year {
-            background: linear-gradient(45deg, #F2B33D, #F29727);
-            color: #401201;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(242, 179, 61, 0.3);
-            flex-shrink: 0;
-        }
-
-        .event p {
-            margin: 0;
-            flex: 1;
-            color: #555;
-        }
-
-        .conclusion {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border-left: 5px solid #F2B33D;
-            font-style: italic;
-            font-weight: 500;
-            margin-top: 2rem;
-            color: #444;
-        }
-
-        @media (max-width: 768px) {
-            #history {
-                margin: 2rem 1rem;
-                padding: 1.5rem;
-            }
-            
-            #history h2 {
-                font-size: 2rem;
-            }
-            
-            .history-content h3 {
-                font-size: 1.5rem;
-            }
-            
-            .event {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-            
-            .event .year {
-                align-self: flex-start;
-            }
-            
-            .timeline-events {
-                padding: 1rem;
-            }
-            
-        }
-    </style>
+    <meta name="description"
+        content="Portal sobre o folclore e a história do Brasil: lendas, mitos e memória cultural.">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
     <!-- Navegação principal -->
     <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
         <ul>
-        <link rel="stylesheet" href="assets/style.css">
             <li><a href="index.html">Home</a></li>
             <li><a href="campina_historia.html">Nossa história</a></li>
             <li><a href="grade.html">Nossa Grade</a></li>
@@ -379,19 +23,20 @@
                 <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
                 <ul id="games-menu" role="menu" aria-hidden="true">
                     <li role="none"><a role="menuitem" class="game-name" href="Davi_8A.html">8°A FORCA</a></li>
-                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/culinaria.html">8°B QUIZ CULINÁRIO</a></li>
-                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/vitoria_8c.html">8°C RITMOS ANCESTRAIS</a></li>
-                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/almir_flap.html">7°B FLAP BIRD</a></li>
-                            
-                    
+                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/culinaria.html">8°B QUIZ
+                            CULINÁRIO</a></li>
+                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/vitoria_8c.html">8°C RITMOS
+                            ANCESTRAIS</a></li>
+                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/almir_flap.html">7°B FLAP BIRD</a>
+                    </li>
                 </ul>
             </li>
-            
+
             <!-- Nome da escola no canto direito -->
             <li class="school-name">Colégio Campina da Lagoa</li>
         </ul>
     </nav>
-    
+
     <header>
         <div class="banner">
             <div class="carousel-header">
@@ -406,28 +51,37 @@
                     </div>
                     <div class="carousel-item-header active">
                         <a href="feirao.html">
-                            <img class="header-image" src="assets/images/banners/banner_1.png" alt="Imagem 1 do carrossel" loading="lazy">
+                            <img class="header-image" src="assets/images/banners/banner_1.png"
+                                alt="Imagem 1 do carrossel" loading="lazy">
                         </a>
                     </div>
                     <div class="carousel-item-header">
-                        <img class="header-image" src="assets/images/banners/banner_2.png" alt="Imagem 2 do carrossel" loading="lazy">
+                        <img class="header-image" src="assets/images/banners/banner_2.png" alt="Imagem 2 do carrossel"
+                            loading="lazy">
                     </div>
                     <div class="carousel-item-header">
-                        <img class="header-image" src="assets/images/banners/banner_3.png" alt="Imagem 3 do carrossel" loading="lazy">
+                        <img class="header-image" src="assets/images/banners/banner_3.png" alt="Imagem 3 do carrossel"
+                            loading="lazy">
                     </div>
                 </div>
             </div>
-         </div>
-     </header>
-     <div style="width:100%;height:40px;"></div> <!-- separador visual entre o banner e o main -->
+        </div>
+    </header>
+    <div style="width:100%;height:40px;"></div> <!-- separador visual entre o banner e o main -->
     <main id="main">
         <div class="main-flex box-1">
             <section id="school-summary">
                 <h2>Resumo Histórico</h2>
                 <p>
-                Fundado em 1969, o Colégio Campina da Lagoa surgiu para atender à crescente demanda educacional da cidade, graças ao empenho da comunidade e lideranças locais. Inicialmente funcionando em prédio provisório, mudou-se em 1972 para sua sede atual, expandindo gradualmente sua estrutura e oferta de cursos. Em 2021, tornou-se Escola em Tempo Integral, após consulta pública e apoio das famílias, buscando superar desafios impostos pela pandemia e promover o desenvolvimento integral dos estudantes.
+                    Fundado em 1969, o Colégio Campina da Lagoa surgiu para atender à crescente demanda educacional da
+                    cidade, graças ao empenho da comunidade e lideranças locais. Inicialmente funcionando em prédio
+                    provisório, mudou-se em 1972 para sua sede atual, expandindo gradualmente sua estrutura e oferta de
+                    cursos. Em 2021, tornou-se Escola em Tempo Integral, após consulta pública e apoio das famílias,
+                    buscando superar desafios impostos pela pandemia e promover o desenvolvimento integral dos
+                    estudantes.
                 </p>
-                <button class="saiba-mais-btn" id="saiba-mais-btn" onclick="window.location.href='campina_historia.html'">Saiba mais</button>
+                <button class="saiba-mais-btn" id="saiba-mais-btn"
+                    onclick="window.location.href='campina_historia.html'">Saiba mais</button>
             </section>
             <div class="logo-box">
                 <img src="assets/images/logo_escola_1.png" alt="Logo CECAL" class="logo-img">
@@ -440,13 +94,15 @@
             <section id="school-summary" style="order:2;">
                 <h2>Nossa Grade Curricular</h2>
                 <p>
-                Clique e conheça nossa grade curricular atualizada, alinhada à BNCC e com diferenciais que preparam nossos alunos para os desafios do século XXI.
+                    Clique e conheça nossa grade curricular atualizada, alinhada à BNCC e com diferenciais que preparam
+                    nossos alunos para os desafios do século XXI.
                 </p>
-                <button class="saiba-mais-btn" id="saiba-mais-btn" onclick="window.location.href='grade.html'">Saiba mais</button>
+                <button class="saiba-mais-btn" id="saiba-mais-btn" onclick="window.location.href='grade.html'">Saiba
+                    mais</button>
             </section>
         </div>
     </main>
-            
+
     <!-- Seção de História -->
     <footer>
         <p>© <span id="year">2025</span> Folclore Brasileiro. Todos os direitos reservados.</p>
@@ -456,17 +112,17 @@
     <script src="assets/js/main.js" defer></script>
     <!-- Script do menu Games -->
     <script>
-        (function(){
+        (function () {
             const btn = document.getElementById('games-button');
             const menu = document.getElementById('games-menu');
 
             function openMenu() {
-                btn.setAttribute('aria-expanded','true');
-                menu.setAttribute('aria-hidden','false');
+                btn.setAttribute('aria-expanded', 'true');
+                menu.setAttribute('aria-hidden', 'false');
             }
             function closeMenu() {
-                btn.setAttribute('aria-expanded','false');
-                menu.setAttribute('aria-hidden','true');
+                btn.setAttribute('aria-expanded', 'false');
+                menu.setAttribute('aria-hidden', 'true');
             }
             function toggleMenu() {
                 if (menu.getAttribute('aria-hidden') === 'true') openMenu(); else closeMenu();
@@ -495,7 +151,7 @@
     <!-- Script do carrossel de imagens do banner -->
     <script>
         // Carrossel do banner com indicadores <li>
-        (function(){
+        (function () {
             const items = document.querySelectorAll('.carousel-item-header');
             const indicators = document.querySelectorAll('.carousel-indicators-header li.carousel-indicator-header');
             if (items.length <= 1) return;
@@ -521,4 +177,5 @@
         })();
     </script>
 </body>
+
 </html>

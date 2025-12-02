@@ -261,7 +261,7 @@ header .banner figure { margin: 0; padding: 0; width: 100%; display: block; }
 
 /* PÁGINA FOLCLORE */
 .container {
-	max-width: 900px; margin: 2rem auto; padding: 1.5rem;
+	max-width: 100%; margin: 2rem auto; padding: 1.5rem;
 	background: var(--bg-soft); border-radius: 12px;
 	border: 1px solid rgba(20,115,230,0.08); box-shadow: 0 8px 32px rgba(20,115,230,0.08);
 	position: relative; z-index: 10;
@@ -382,7 +382,7 @@ tbody tr:hover {
 }
 
 /* CARROSSEL DAS EQUIPES */
-.carousel { position: relative; width: 100%; max-width: 900px; margin: 2rem auto; border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(115,48,9,0.18); height: 240px; }
+.carousel { position: relative; width: 100%; max-width: 100%; margin: 2rem auto; border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(115,48,9,0.18); height: 240px; }
 .carousel-inner { position: relative; width: 100%; height: 100%; }
 .carousel-item { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease; }
 .carousel-item.active { opacity: 1; }
@@ -628,3 +628,281 @@ table.grade tbody tr:hover {
         font-size: 0.95rem;
     }
 }
+
+/*TODO CSS DO INDEX*/
+
+.main-flex {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 2rem;
+	align-items: center;
+	width: 100%;
+	}
+	.main-flex box-1{
+	box-shadow: 0 8px 32px rgba(0,0,0,0.9);
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 2rem;
+	align-items: center;
+	width: 100%;
+	}
+	.main-flex box-2{
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	gap: 2rem;
+	align-items: center;
+	width: 100%;
+	}
+	#school-summary {
+	width: 66%;
+	box-sizing: border-box;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	}
+	.saiba-mais-btn{
+	background: linear-gradient(45deg, #03178C, #1473e6);
+	color: #fff;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 999px;
+	font-weight: 800;
+	cursor: pointer;
+	box-shadow: 0 8px 20px rgba(242,179,61,0.18);
+	align-self: flex-start;
+	margin-top: auto;
+	}
+	.logo-box {
+	width: 33%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: auto;
+	box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+	}
+	.logo-img {
+	max-width: 100%;
+	height: 100%;
+	object-fit: contain;
+	display: block;
+	}
+	/* dropdown games */
+	.game-name {
+	color: #F29727 !important;
+	}
+	.nav-games { position: relative; }
+
+	/* Estilo para o nome da escola no canto direito */
+	nav ul {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	}
+	.school-name {
+	margin-left: auto;
+	font-weight: 700;
+	color: #fff;
+	padding: 1px 12px;
+	white-space: nowrap;
+	}/*
+
+	#games-button {
+	background: linear-gradient(45deg, #F2B33D, #F29727);
+	color: #401201;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 999px;
+	font-weight: 800;
+	cursor: pointer;
+	box-shadow: 0 8px 20px rgba(242,179,61,0.18);
+	}
+	#games-menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	background: rgba(0, 0, 0, 0.98);
+	border: 1px solid rgba(242,179,61,0.12);
+	border-radius: 29px;
+	padding: 120px 16px;        
+	min-width: 320px;
+	display: none;             
+	box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+	z-index: 9999;             
+	}
+	#games-menu[aria-hidden="false"] {
+	display: grid;
+	align-content: center;
+	justify-content: flex-start;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px 24px;
+	justify-items: start;
+	}
+	#games-menu a {
+	display: inline-block;
+	padding: 10px 18px;
+	color: var(--light);
+	text-decoration: none;
+	border-radius: 8px;
+	font-weight: 700;
+	text-align: left;
+	min-width: max-content;
+	position: relative;
+	z-index: 600;
+	}
+	#games-menu a:hover, #games-menu a:focus {
+	background: rgba(242,179,61,0.08);
+	color: var(--gold);
+	outline: none;
+	}
+	#games-menu[aria-hidden="false"] { display: flex; }
+	*/
+	/* responsivo */
+	@media (max-width:640px){
+	#games-menu { right: 0; left: auto; min-width: 180px; }
+	.school-name { display: none; } /* Esconde o nome da escola em telas pequenas */
+	}
+
+
+
+	/* NOVO: Estilos para a seção de história */
+	#history {
+	max-width: 1200px;
+	margin: 3rem auto;
+	padding: 2rem;
+	background: white;
+	border-radius: 20px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+	color: #333;
+	}
+
+	#history h2 {
+	color: #1473e6;
+	text-align: center;
+	font-size: 2.5rem;
+	margin-bottom: 2rem;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.history-content h3 {
+	color: #1473e6;
+	font-size: 1.8rem;
+	margin: 2rem 0 1rem;
+	border-bottom: 3px solid rgba(242, 179, 61, 0.3);
+	padding-bottom: 0.5rem;
+	}
+
+	.history-content h4 {
+	color: #1473e6;
+	font-size: 1.4rem;
+	margin: 1.5rem 0 0.8rem;
+	}
+
+	.history-content p {
+	line-height: 1.8;
+	margin-bottom: 1.2rem;
+	text-align: justify;
+	color: #444;
+	}
+
+	.history-content ul {
+	margin: 1rem 0;
+	padding-left: 2rem;
+	}
+
+	.history-content li {
+	margin-bottom: 0.8rem;
+	line-height: 1.6;
+	color: #444;
+	}
+
+	.history-content strong {
+	color: #1473e6;;
+	font-weight: 700;
+	}
+
+	.timeline-events {
+	display: grid;
+	gap: 1.5rem;
+	margin: 2rem 0;
+	padding: 1.5rem;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 15px;
+	border-left: 5px solid #F29727;
+	}
+
+	.event {
+	display: flex;
+	gap: 1.5rem;
+	align-items: flex-start;
+	padding: 1rem;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.event:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+	}
+
+	.event .year {
+	background: linear-gradient(45deg, #F2B33D, #F29727);
+	color: #401201;
+	padding: 0.5rem 1rem;
+	border-radius: 25px;
+	font-weight: 800;
+	font-size: 0.9rem;
+	white-space: nowrap;
+	box-shadow: 0 4px 12px rgba(242, 179, 61, 0.3);
+	flex-shrink: 0;
+	}
+
+	.event p {
+	margin: 0;
+	flex: 1;
+	color: #555;
+	}
+
+	.conclusion {
+	background: rgba(255, 255, 255, 0.05);
+	padding: 1.5rem;
+	border-radius: 15px;
+	border-left: 5px solid #F2B33D;
+	font-style: italic;
+	font-weight: 500;
+	margin-top: 2rem;
+	color: #444;
+	}
+
+	@media (max-width: 768px) {
+	#history {
+	margin: 2rem 1rem;
+	padding: 1.5rem;
+	}
+
+	#history h2 {
+	font-size: 2rem;
+	}
+
+	.history-content h3 {
+	font-size: 1.5rem;
+	}
+
+	.event {
+	flex-direction: column;
+	gap: 0.8rem;
+	}
+
+	.event .year {
+	align-self: flex-start;
+	}
+
+	.timeline-events {
+	padding: 1rem;
+	}
+
+	}
