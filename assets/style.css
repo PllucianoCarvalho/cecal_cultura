@@ -13,7 +13,7 @@
 	/* azul claro */
 	--p-3: #0D8C39;
 	/* verde */
-	--p-4: #ffffff;
+	--p-4: #000000;
 	/* bege claro */
 	--p-5: #0D0D0D;
 	/* preto */
@@ -22,7 +22,7 @@
 	--gold-2: #F29727;
 	--text-gold: #401201;
 
-	--bg-soft: #fffaf0;
+	--bg-soft: #ffffffef;
 	--text: var(--p-5);
 	--muted: rgba(20, 115, 230, 0.72);
 
