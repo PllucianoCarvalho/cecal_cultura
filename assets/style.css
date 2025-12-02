@@ -295,13 +295,62 @@ th { background: var(--p-2); color: #fff; }
 .diversificada { background: var(--gold-2); }
 .flexivel { background: var(--p-1); }
 
-/* DROPDOWN GAMES */
-.school-name { margin-left: auto; font-weight: 700; color: #fff; padding: 1px 12px; white-space: nowrap; }
-#games-button { background: linear-gradient(45deg, var(--gold-1), var(--gold-2)); color: var(--text-gold); border: none; padding: 8px 12px; border-radius: 999px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 20px rgba(242,179,61,0.18); }
-#games-menu { position: absolute; top: calc(100% + 8px); left: 0; background: rgba(0,0,0,0.98); border: 1px solid rgba(242,179,61,0.12); border-radius: 29px; padding: 20px 16px; min-width: 320px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,0.6); z-index: 9999; }
-#games-menu[aria-hidden="false"] { display: grid; align-content: center; justify-content: flex-start; grid-template-columns: 1fr 1fr; gap: 10px 24px; justify-items: start; }
-#games-menu a { display: inline-block; padding: 10px 18px; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700; text-align: left; min-width: max-content; position: relative; z-index: 600; }
-#games-menu a:hover, #games-menu a:focus { background: rgba(242,179,61,0.08); color: var(--gold-1); outline: none; }
+/* DROPDOWN GAMES - PADRÃO GLOBAL */
+.school-name {
+    margin-left: auto;
+    font-weight: 700;
+    color: #fff;
+    padding: 1px 12px;
+    white-space: nowrap;
+}
+#games-button {
+    background: linear-gradient(45deg, var(--gold-1), var(--gold-2));
+    color: var(--text-gold);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(242,179,61,0.18);
+}
+#games-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: rgba(0,0,0,0.98);
+    border: 1px solid rgba(242,179,61,0.12);
+    border-radius: 29px;
+    padding: 20px 16px;
+    min-width: 320px;
+    display: none;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.6);
+    z-index: 9999;
+}
+#games-menu[aria-hidden="false"] {
+    display: grid;
+    align-content: center;
+    justify-content: flex-start;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    justify-items: start;
+}
+#games-menu a {
+    display: inline-block;
+    padding: 10px 18px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    text-align: left;
+    min-width: max-content;
+    position: relative;
+    z-index: 600;
+}
+#games-menu a:hover, #games-menu a:focus {
+    background: rgba(242,179,61,0.08);
+    color: var(--gold-1);
+    outline: none;
+}
 
 /* CARROSSEL DAS EQUIPES */
 .carousel { position: relative; width: 100%; max-width: 900px; margin: 2rem auto; border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(115,48,9,0.18); height: 240px; }
