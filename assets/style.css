@@ -9,14 +9,14 @@
 	--p-1: #03178C;      /* azul escuro */
 	--p-2: #1473e6;      /* azul claro */
 	--p-3: #0D8C39;      /* verde */
-	--p-4: #F2DCC2;      /* bege claro */
+	--p-4: rgb(0, 0, 0);      /* bege claro */
 	--p-5: #0D0D0D;      /* preto */
 
 	--gold-1: #F2B33D;
 	--gold-2: #F29727;
 	--text-gold: #401201;
 
-	--bg-soft: #fffaf0;
+	--bg-soft: #ffffffee;
 	--text: var(--p-5);
 	--muted: rgba(20,115,230,0.72);
 
@@ -113,7 +113,7 @@ main {
 	padding: 1rem;
 	background: rgba(255,255,255,0.92);
 	border-radius: 10px;
-	padding-top: 0.5rem;
+	padding-top: 2.5rem; /* aumentado para afastar do carousel */
 }
 main h1 {
 	color: var(--p-4);
@@ -163,6 +163,7 @@ section {
 	background: linear-gradient(180deg, var(--p-2), var(--p-3));
 	color: #fff;
 	box-shadow: 0 14px 40px rgba(115,48,9,0.16);
+
 	border: none;
 }
 
@@ -252,7 +253,7 @@ header .banner figure { margin: 0; padding: 0; width: 100%; display: block; }
 }
 
 /* CARROSSEL HEADER */
-.carousel-header { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; border-radius: 18px; box-shadow: 0 8px 32px rgba(115,48,9,0.10); }
+.carousel-header { position: relative; width: 100%; max-width: 1000px; margin-bottom: 2.5rem;margin: 0 auto; overflow: hidden; border-radius: 18px; box-shadow: 0 8px 32px rgba(115,48,9,0.10); }
 .carousel-inner-header { width: 100%; height: 320px; display: flex; position: relative; }
 .carousel-item-header { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.7s ease; }
 .carousel-item-header.active { opacity: 1; z-index: 2; }
@@ -261,7 +262,7 @@ header .banner figure { margin: 0; padding: 0; width: 100%; display: block; }
 /* PÁGINA FOLCLORE */
 .container {
 	max-width: 900px; margin: 2rem auto; padding: 1.5rem;
-	background: #fffaf0; border-radius: 12px;
+	background: var(--bg-soft); border-radius: 12px;
 	border: 1px solid rgba(20,115,230,0.08); box-shadow: 0 8px 32px rgba(20,115,230,0.08);
 	position: relative; z-index: 10;
 }
@@ -289,11 +290,39 @@ h1 { font-family: 'Merriweather', serif; color: var(--p-4); font-size: clamp(2re
 .folclore-card p { color: rgba(20,115,230,0.72); font-size: 0.95rem; margin: 0 0 1rem; flex-grow: 1; }
 .folclore-card .origem { font-size: 0.8rem; color: var(--p-3); font-style: italic; margin-top: auto; font-weight: 600; }
 
-/* GRADE / BNCC */
-th { background: var(--p-2); color: #fff; }
+/* Correção: Estilos para grade curricular */
+th, .bncc, .diversificada, .flexivel {
+    background: var(--p-2);
+    color: #fff;
+}
 .bncc { background: var(--p-2); }
 .diversificada { background: var(--gold-2); }
 .flexivel { background: var(--p-1); }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(20,115,230,0.08);
+    overflow: hidden;
+}
+thead {
+    background: var(--p-2);
+    color: #fff;
+}
+td, th {
+    padding: 0.85rem 1.2rem;
+    border: 1px solid rgba(20,115,230,0.10);
+    text-align: left;
+    font-size: 1rem;
+}
+tbody tr:nth-child(even) {
+    background: #f7faff;
+}
+tbody tr:hover {
+    background: rgba(20,115,230,0.08);
+}
 
 /* DROPDOWN GAMES - PADRÃO GLOBAL */
 .school-name {
@@ -385,3 +414,217 @@ footer {
 	.school-name { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* Estilo para h2 dentro de eventos na página de história */
+.event h2 {
+    color: #1473e6;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    text-shadow: 1px 1px 3px rgba(20,115,230,0.12);
+    border-bottom: 2px solid rgba(242,179,61,0.18);
+    padding-bottom: 0.3rem;
+}
+/* NOVO: Estilos para a seção de história */
+#history {
+	max-width: 1200px;
+	margin: 3rem auto;
+	padding: 2rem;
+	background: white;
+	border-radius: 20px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+	color: #333;
+}
+
+#history h2 {
+	color: #1473e6;
+	text-align: center;
+	font-size: 2.5rem;
+	margin-bottom: 2rem;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.history-content h3 {
+	color: #1473e6;
+	font-size: 1.8rem;
+	margin: 2rem 0 1rem;
+	border-bottom: 3px solid rgba(242, 179, 61, 0.3);
+	padding-bottom: 0.5rem;
+}
+
+.history-content h4 {
+	color: #1473e6;
+	font-size: 1.4rem;
+	margin: 1.5rem 0 0.8rem;
+}
+
+.history-content p {
+	line-height: 1.8;
+	margin-bottom: 1.2rem;
+	text-align: justify;
+	color: #444;
+}
+
+.history-content ul {
+	margin: 1rem 0;
+	padding-left: 2rem;
+}
+
+.history-content li {
+	margin-bottom: 0.8rem;
+	line-height: 1.6;
+	color: #444;
+}
+
+.history-content strong {
+	color: #1473e6;
+	font-weight: 700;
+}
+
+.timeline-events {
+	display: grid;
+	gap: 1.5rem;
+	margin: 2rem 0;
+	padding: 1.5rem;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 15px;
+	border-left: 5px solid #F29727;
+}
+
+.event {
+	display: flex;
+	gap: 1.5rem;
+	align-items: flex-start;
+	padding: 1rem;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15);
+}
+
+.event .year {
+	background: linear-gradient(45deg, #F2B33D, #F29727);
+	color: #401201;
+	padding: 0.5rem 1rem;
+	border-radius: 25px;
+	font-weight: 800;
+	font-size: 0.9rem;
+	white-space: nowrap;
+	box-shadow: 0 4px 12px rgba(242, 179, 61, 0.3);
+	flex-shrink: 0;
+}
+
+.event p {
+	margin: 0;
+	flex: 1;
+	color: #555;
+}
+
+.conclusion {
+	background: rgba(255, 255, 255, 0.05);
+	padding: 1.5rem;
+	border-radius: 15px;
+	border-left: 5px solid #F2B33D;
+	font-style: italic;
+	font-weight: 500;
+	margin-top: 2rem;
+	color: #444;
+}
+
+@media (max-width: 768px) {
+	#history {
+		margin: 2rem 1rem;
+		padding: 1.5rem;
+	}
+	
+	#history h2 {
+		font-size: 2rem;
+	}
+	
+	.history-content h3 {
+		font-size: 1.5rem;
+	}
+	
+	.event {
+		flex-direction: column;
+		gap: 0.8rem;
+	}
+	
+	.event .year {
+		align-self: flex-start;
+	}
+	
+	.timeline-events {
+		padding: 1rem;
+	}
+}
+
+/* ====== ESTILOS DA GRADE CURRICULAR ====== */
+.grade-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(20,115,230,0.10);
+}
+.grade-container h1, .grade-container h2 {
+    color: var(--p-2);
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 8px rgba(20,115,230,0.10);
+}
+table.grade {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(20,115,230,0.08);
+    overflow: hidden;
+}
+table.grade thead {
+    background: var(--p-2);
+    color: #fff;
+}
+table.grade th, table.grade td {
+    padding: 0.85rem 1.2rem;
+    border: 1px solid rgba(20,115,230,0.10);
+    text-align: left;
+    font-size: 1rem;
+}
+table.grade tbody tr:nth-child(even) {
+    background: #f7faff;
+}
+table.grade tbody tr:hover {
+    background: rgba(20,115,230,0.08);
+}
+.bncc {
+    background: var(--p-2);
+    color: #fff;
+    font-weight: 700;
+}
+.diversificada {
+    background: var(--gold-2);
+    color: #fff;
+    font-weight: 700;
+}
+.flexivel {
+    background: var(--p-1);
+    color: #fff;
+    font-weight: 700;
+}
+@media (max-width: 800px) {
+    .grade-container {
+        padding: 1rem;
+    }
+    table.grade th, table.grade td {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.95rem;
+    }
+}
