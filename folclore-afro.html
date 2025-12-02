@@ -11,6 +11,7 @@
     </style>
 </head>
 <body>
+    <script src="assets/js/main.js" defer></script>
     <!-- Navegação principal -->
     <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
         <ul>
@@ -39,7 +40,7 @@
     </nav>
 
     <div class="container">
-        <a href="index.html" class="back-link">← Voltar à Home</a>
+        <!--<a href="index.html" class="back-link">← Voltar à Home</a>-->
         <h1>Folclore Afro-Brasileiro</h1>
         <p class="subtitle">Raízes, resistências e celebrações da diáspora africana no Brasil</p>
 
@@ -160,34 +161,8 @@
     </footer>
 
     <!-- Script do Dropdown Games! (igual ao index.html) -->
+    <!-- O menu Games agora é controlado globalmente pelo main.js -->
     <script>
-        (function(){
-            const btn = document.getElementById('games-button');
-            const menu = document.getElementById('games-menu');
-
-            function openMenu() {
-                btn.setAttribute('aria-expanded','true');
-                menu.setAttribute('aria-hidden','false');
-            }
-            function closeMenu() {
-                btn.setAttribute('aria-expanded','false');
-                menu.setAttribute('aria-hidden','true');
-            }
-            function toggleMenu() {
-                if (menu.getAttribute('aria-hidden') === 'true') openMenu(); else closeMenu();
-            }
-
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleMenu();
-            });
-            document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== btn) closeMenu();
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeMenu();
-            });
-        })();
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>

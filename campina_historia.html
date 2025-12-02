@@ -6,7 +6,9 @@
     <title>História do Colégio Campina da Lagoa</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
+    <script src="assets/js/main.js" defer></script>
 
     <!-- Navegação principal -->
     <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
@@ -73,36 +75,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Script do menu Games (exatamente o mesmo da página inicial) -->
-    <script>
-        (function(){
-            const btn = document.getElementById('games-button');
-            const menu = document.getElementById('games-menu');
-
-            function openMenu() {
-                btn.setAttribute('aria-expanded','true');
-                menu.setAttribute('aria-hidden','false');
-            }
-            function closeMenu() {
-                btn.setAttribute('aria-expanded','false');
-                menu.setAttribute('aria-hidden','true');
-            }
-            function toggleMenu() {
-                if (menu.getAttribute('aria-hidden') === 'true') openMenu(); else closeMenu();
-            }
-
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleMenu();
-            });
-            document.addEventListener('click', (e) => {
-                if (!menu.contains(e.target) && e.target !== btn) closeMenu();
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeMenu();
-            });
-        })();
-    </script>
+    
 </body>
 </html>

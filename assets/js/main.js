@@ -233,4 +233,40 @@
 			});
 		});
 	})();
+
+	// Script global para controlar o menu Games
+	(function(){
+		const btn = document.getElementById('games-button');
+		const menu = document.getElementById('games-menu');
+		if (!btn || !menu) return;
+		function openMenu() {
+			btn.setAttribute('aria-expanded','true');
+			menu.setAttribute('aria-hidden','false');
+		}
+		function closeMenu() {
+			btn.setAttribute('aria-expanded','false');
+			menu.setAttribute('aria-hidden','true');
+		}
+		function toggleMenu() {
+			if (menu.getAttribute('aria-hidden') === 'true') openMenu(); else closeMenu();
+		}
+		btn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			toggleMenu();
+		});
+		document.addEventListener('click', (e) => {
+			if (!menu.contains(e.target) && e.target !== btn) closeMenu();
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') closeMenu();
+			if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && menu.getAttribute('aria-hidden') === 'true') {
+				openMenu();
+				e.preventDefault();
+			}
+		});
+		menu.addEventListener('focusout', (e) => {
+			const newFocus = e.relatedTarget;
+			if (!menu.contains(newFocus) && newFocus !== btn) closeMenu();
+		});
+	})();
 })();

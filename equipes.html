@@ -6,160 +6,10 @@
     <title>Equipe Norte | Equipes e Regiões</title>
     <meta name="description" content="Equipe Norte - Representando a região amazônica e o rico folclore do Norte do Brasil.">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
-
-        :root {
-            --p-1: #03178C;
-            --p-2: #1473e6;
-            --p-3: #0D8C39;
-            --p-4: #F2DCC2;
-            --p-5: #0D0D0D;
-            --bg-soft: #fffaf0;
-            --text: var(--p-1);
-            --muted: rgba(20,115,230,0.72);
-            --radius: 10px;
-            --gap: 1rem;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background-color: var(--bg-soft);
-            background-image:
-                url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'><rect width='800' height='600' fill='%2303178C'/><rect x='0' y='0' width='120' height='120' fill='%231473e6'/><rect x='120' y='0' width='120' height='120' fill='%230D8C39'/><rect x='240' y='0' width='120' height='120' fill='%23F2DCC2'/><rect x='360' y='0' width='120' height='120' fill='%2303178C'/><rect x='0' y='120' width='120' height='120' fill='%230D8C39'/><rect x='120' y='120' width='120' height='120' fill='%23F2DCC2'/><circle cx='620' cy='420' r='140' fill='%231473e6' opacity='0.14'/></svg>"),
-                linear-gradient(180deg, rgba(3,23,140,0.06), rgba(20,115,230,0.04));
-            background-repeat: repeat, no-repeat;
-            background-size: 900px 675px, cover;
-            background-position: 0 0, center;
-            color: var(--text);
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.7;
-            padding: 1.25rem;
-            animation: mosaicMove 60s linear infinite;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
-            background: radial-gradient(1200px 600px at 10% 10%, rgba(255,250,240,0.35), rgba(255,250,240,0.02) 40%),
-                        radial-gradient(900px 400px at 90% 90%, rgba(242,181,68,0.08), rgba(255,250,240,0.0) 40%);
-            mix-blend-mode: multiply; opacity: 0.95;
-        }
-
-        @keyframes mosaicMove {
-            0%   { background-position: 0 0, center; }
-            25%  { background-position: -220px -120px, center; }
-            50%  { background-position: -440px -240px, center; }
-            75%  { background-position: -220px -120px, center; }
-            100% { background-position: 0 0, center; }
-        }
-
-        /* NAVEGAÇÃO FIXA (idêntica ao resto do site) */
-        nav {
-            background: linear-gradient(90deg, var(--p-2), var(--p-2));
-            backdrop-filter: blur(4px) saturate(1.05);
-            color: var(--p-5); padding: 0.5rem; border-radius: 10px; margin-bottom: var(--gap);
-            position: sticky; top: 0; z-index: 60;
-        }
-        nav ul {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-        }
-        nav a { color: var(--p-5); text-decoration: none; font-weight: 600; padding: 0.5rem 0.75rem; border-radius: 8px; transition: all .12s ease; }
-        nav a:hover, nav a:focus { background: rgba(255,255,255,0.12); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
-
-        /* Remover estilos duplicados do dropdown Games para usar apenas o CSS global */
-
-        .container {
-            max-width: 1000px; margin: 2rem auto; padding: 2rem;
-            background: rgba(255,255,255,0.96); border-radius: 12px;
-            border: 1px solid rgba(115,48,9,0.06); box-shadow: 0 8px 32px rgba(115,48,9,0.08);
-            position: relative; z-index: 10;
-        }
-
-        .back-link {
-            display: inline-block; margin-bottom: 1.5rem; padding: 0.75rem 1.5rem;
-            background: linear-gradient(180deg, var(--p-3), var(--p-5)); color: #fff;
-            text-decoration: none; border-radius: 999px; font-weight: 700;
-            box-shadow: 0 4px 12px rgba(191,55,6,0.3); transition: all .12s ease;
-        }
-        .back-link:hover { transform: translateY(-2px); filter: brightness(1.05); }
-
-        h1 {
-            font-family: 'Merriweather', serif; color: var(--p-4); text-align: center;
-            font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0 0 0.5rem;
-            text-shadow: 0 2px 8px rgba(115,48,9,0.1);
-        }
-
-        /* ====== CARROSSEL DE IMAGENS ====== */
-        .carousel {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin: 2rem auto;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(115,48,9,0.18);
-            height: 240px;
-        }
-
-        .carousel-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .carousel-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .carousel-item.active {
-            opacity: 1;
-        }
-
-        .carousel-item img {
-            width: 225px;
-            height: 300px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Texto abaixo do carrossel */
-        .team-description {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(255,250,240,0.7);
-            border-radius: var(--radius);
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--muted);
-            font-style: italic;
-            border: 1px solid rgba(115,48,9,0.08);
-        }
-
-        footer {
-            text-align: center; padding: 1.5rem; background: linear-gradient(90deg, var(--p-4), var(--p-5));
-            color: #fff; border-radius: 10px; margin: 2rem auto 0; max-width: 1000px;
-            box-shadow: 0 8px 30px rgba(115,48,9,0.14);
-        }
-
-        @media (max-width: 640px) {
-            .carousel { height: 150px; }
-            .carousel-item img { height: 150px; }
-            .container { padding: 1.5rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+    <script src="assets/js/main.js" defer></script>
     <!-- Navegação principal -->
     <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
         <ul>
@@ -188,7 +38,7 @@
     </nav>
 
     <div class="container">
-        <a href="equipes.html" class="back-link">← Voltar para Equipes</a>
+        <!--<a href="equipes.html" class="back-link">← Voltar para Equipes</a>>-->
         <h1>Equipe Norte</h1>
 
         <!-- CARROSSEL -->
