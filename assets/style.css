@@ -13,7 +13,7 @@
 	/* azul claro */
 	--p-3: #0D8C39;
 	/* verde */
-	--p-4: rgb(0, 0, 0);
+	--p-4: #000000;
 	/* bege claro */
 	--p-5: #0D0D0D;
 	/* preto */
@@ -22,7 +22,7 @@
 	--gold-2: #F29727;
 	--text-gold: #401201;
 
-	--bg-soft: #ffffffee;
+	--bg-soft: #ffffffef;
 	--text: var(--p-5);
 	--muted: rgba(20, 115, 230, 0.72);
 
@@ -423,8 +423,7 @@ header .banner figure {
 	position: relative;
 	width: 100%;
 	max-width: 1000px;
-	margin-bottom: 2.5rem;
-	margin: 0 auto;
+	margin: 0 auto 2.5rem;
 	overflow: hidden;
 	border-radius: 18px;
 	box-shadow: 0 8px 32px rgba(115, 48, 9, 0.10);
@@ -1215,7 +1214,7 @@ nav ul {
 
 .history-content strong {
 	color: #1473e6;
-	;
+
 	font-weight: 700;
 }
 
