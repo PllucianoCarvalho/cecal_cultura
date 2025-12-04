@@ -431,7 +431,7 @@ header .banner figure {
 
 .carousel-inner-header {
 	width: 100%;
-	height: 320px;
+	height: 380px;
 	display: flex;
 	position: relative;
 }
@@ -742,8 +742,8 @@ tbody tr:hover {
 }
 
 .carousel-item img {
-	width: 225px;
-	height: 300px;
+	width: 100%;
+	height: 100%;
 	object-fit: contain;
 	display: block;
 	margin: 0 auto;

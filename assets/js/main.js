@@ -1,3 +1,20 @@
+// Carrossel de equipes: todos rodando ao mesmo tempo
+(function() {
+	document.addEventListener("DOMContentLoaded", function () {
+		const carousels = document.querySelectorAll('.carousel-inner');
+		carousels.forEach(function(carousel) {
+			const items = carousel.querySelectorAll('.carousel-item');
+			if (items.length <= 1) return;
+			let current = 0;
+			items[0].classList.add('active');
+			setInterval(function() {
+				items[current].classList.remove('active');
+				current = (current + 1) % items.length;
+				items[current].classList.add('active');
+			}, 2000);
+		});
+	});
+})();
 (function () {
 	'use strict';
 
