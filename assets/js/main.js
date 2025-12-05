@@ -1,3 +1,31 @@
+// Dropdown Games customizado
+document.addEventListener('DOMContentLoaded', function () {
+	const drop = document.querySelector('.drop');
+	if (!drop) return;
+	drop.addEventListener('click', function (e) {
+		e.stopPropagation();
+		drop.classList.toggle('liquid');
+	});
+	document.addEventListener('click', function () {
+		if (drop.classList.contains('liquid')) {
+			drop.classList.remove('liquid');
+		}
+	});
+});
+// Dropdown Games customizado
+document.addEventListener('DOMContentLoaded', function () {
+	const drop = document.querySelector('.drop');
+	if (!drop) return;
+	drop.addEventListener('click', function (e) {
+		e.stopPropagation();
+		drop.classList.toggle('liquid');
+	});
+	document.addEventListener('click', function () {
+		if (drop.classList.contains('liquid')) {
+			drop.classList.remove('liquid');
+		}
+	});
+});
 // Carrossel de equipes: todos rodando ao mesmo tempo
 (function() {
 	document.addEventListener("DOMContentLoaded", function () {
