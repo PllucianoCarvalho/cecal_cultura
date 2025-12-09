@@ -951,7 +951,7 @@ tbody tr:hover {
 /* ===================== FOOTER ===================== */
 /* Estilos para o rodapé do site */
 footer {
-	max-width: 1200px;
+	max-width: 100%;
 	margin: 1.25rem auto 0;
 	padding: 0.85rem;
 	background: linear-gradient(90deg, var(--p-2), var(--p-1));
@@ -994,11 +994,10 @@ footer {
 		border-radius: 8px;
 	}
 
-	.folclore-grid,
-	.folclore-grid-mobile {
-		grid-template-columns: 1fr;
-		gap: 1rem;
-	}
+	   .folclore-grid-mobile {
+		   grid-template-columns: 1fr;
+		   gap: 1rem;
+	   }
 
 	.folclore-card img {
 		height: 140px;
