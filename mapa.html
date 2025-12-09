@@ -599,7 +599,7 @@
 
           // Carregar bandeira
           const imgBandeira = document.getElementById('bandeira-estado');
-          imgBandeira.src = `assets/images/${info.bandeira}.png`;
+          imgBandeira.src = `assets/images/regioes/${info.bandeira}.png`;
           imgBandeira.style.display = 'block';
           imgBandeira.alt = `Bandeira de ${nomeEstado}`;
           imgBandeira.onerror = function() {
@@ -610,7 +610,7 @@
           // Carregar imagem do mascote
           const imgMascote = document.getElementById('mascote-estado-img');
           if (info.mascote) {
-            imgMascote.src = `assets/images/${info.mascote}.png`;
+            imgMascote.src = `assets/images/regioes/${info.mascote}.png`;
             imgMascote.style.display = 'block';
             imgMascote.alt = `Mascote de ${nomeEstado}: ${info.mascote}`;
             imgMascote.onerror = function() {
