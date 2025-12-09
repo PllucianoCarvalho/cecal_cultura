@@ -18,6 +18,12 @@
 	min-width: 0;
 }
 
+@media (max-width: 768px) {
+	.carousel-box {
+		padding: 1.5rem 1.2rem 2rem 1.2rem;
+	}
+}
+
 .carousel-title {
 	text-align: center;
 	font-size: 1.15rem;
@@ -977,6 +983,12 @@ tbody tr:hover {
 	overflow: hidden;
 	box-shadow: 0 10px 30px rgba(115, 48, 9, 0.18);
 	height: 240px;
+}
+
+@media (max-width: 768px) {
+	.carousel {
+		height: 400px;
+	}
 }
 
 .carousel-inner {
