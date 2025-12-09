@@ -1,3 +1,52 @@
+/* Ajuste para container ocupar largura total no mobile */
+
+.container {
+	width: 100%;
+	max-width: 100vw;
+	margin: 0 auto;
+	padding: 0 1rem;
+	box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 0 0.5rem;
+		max-width: 100vw;
+	}
+	.duas-colunas img,
+	.folclore-card img {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+	}
+}
+/* Layout responsivo para duas colunas */
+.duas-colunas {
+	display: flex;
+	gap: 1rem;
+}
+.duas-colunas > * {
+	flex: 1 1 0;
+}
+.duas-colunas img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+@media (max-width: 768px) {
+	.duas-colunas {
+		flex-direction: column;
+	}
+}
+p {
+	text-align: justify;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
 body {
 	min-height: 100vh;
 	background: #000;
@@ -916,44 +965,92 @@ footer {
 /* Estilos para responsividade geral do site */
 @media (max-width: 640px) {
 	body {
-		padding: 1rem;
+		padding: 0.5rem;
 	}
 
 	nav ul {
-		gap: 0.35rem;
+		gap: 0.2rem;
+		flex-wrap: wrap;
 	}
 
 	main,
 	section,
 	footer {
-		padding: 0.85rem;
+		padding: 0.5rem;
 	}
 
 	.carousel {
-		height: 150px;
+		height: 120px;
 	}
 
 	.carousel-item img {
-		height: 150px;
+		height: 120px;
 	}
 
-	.container {
-		padding: 1rem;
+	.container,
+	.folclore-mobile-container {
+		padding: 0.5rem;
+		margin: 0.5rem 0;
+		border-radius: 8px;
 	}
 
-	.folclore-grid {
-		grid-template-columns: max-content;
+	.folclore-grid,
+	.folclore-grid-mobile {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.folclore-card img {
+		height: 140px;
+	}
+
+	.folclore-card .content {
+		padding: 0.7rem;
+	}
+
+	.subtitle {
+		font-size: 0.98rem;
+		margin-bottom: 1rem;
+	}
+
+	h1 {
+		font-size: 1.3rem;
+		margin-bottom: 0.3rem;
 	}
 
 	#games-menu {
 		right: 0;
 		left: auto;
-		min-width: 180px;
+		min-width: 140px;
 	}
 
 	.school-name {
 		display: none;
 	}
+
+	footer {
+		font-size: 0.95rem;
+		padding: 0.5rem;
+	}
+}
+
+/* Ajustes extras para responsividade de cards e grid */
+.folclore-grid-mobile {
+	grid-template-columns: 1fr !important;
+	gap: 1rem !important;
+}
+.folclore-card {
+	min-width: 0;
+	word-break: break-word;
+}
+.folclore-card img {
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+	border-bottom: 3px solid var(--p-2);
+}
+.folclore-card .content {
+	padding: 1rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
