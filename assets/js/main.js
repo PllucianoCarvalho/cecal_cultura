@@ -26,20 +26,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 });
-// Carrossel de equipes: todos rodando ao mesmo tempo
+// Carrossel de equipes: todos rodando ao mesmo tempo com delay de 0.5s entre cada região
 (function() {
 	document.addEventListener("DOMContentLoaded", function () {
 		const carousels = document.querySelectorAll('.carousel-inner');
-		carousels.forEach(function(carousel) {
+		carousels.forEach(function(carousel, index) {
 			const items = carousel.querySelectorAll('.carousel-item');
 			if (items.length <= 1) return;
 			let current = 0;
 			items[0].classList.add('active');
-			setInterval(function() {
-				items[current].classList.remove('active');
-				current = (current + 1) % items.length;
-				items[current].classList.add('active');
-			}, 2000);
+			// Inicia cada carousel com delay de 0.5s entre cada região
+			const delay = index * 1000; // 500ms = 0.5s DELAY ENTRE CAROUSELS
+			setTimeout(function() {
+				setInterval(function() {
+					items[current].classList.remove('active');
+					current = (current + 1) % items.length;
+					items[current].classList.add('active');
+				}, 2000);
+			}, delay);
 		});
 	});
 })();
