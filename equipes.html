@@ -19,22 +19,20 @@
     <!-- Navegação principal -->
     <nav aria-label="Navegação principal - Colégio Campina da Lagoa">
         <ul>
-            <link rel="stylesheet" href="assets/style.css">
             <li><a href="index.html">Home</a></li>
             <li><a href="campina_historia.html">Nossa história</a></li>
             <li><a href="grade.html">Nossa Grade</a></li>
             <li><a href="feirao.html">Eventos</a></li>
-                        <li class="nav-games">
-                                <div class="drop">
-                                    <div class="label">Games!</div>
-                                    <div class="options">
-                                        <div><a href="Davi_8A.html">8°A FORCA</a></div>
-                                        <div><a href="GAMES/culinaria.html">8°B QUIZ CULINÁRIO</a></div>
-                                        <div><a href="GAMES/vitoria_8c.html">8°C RITMOS ANCESTRAIS</a></div>
-                                        <div><a href="GAMES/almir_flap.html">7°B FLAP BIRD</a></div>
-                                    </div>
-                                </div>
-                        </li>
+            <!-- Games dropdown igual ao index.html -->
+            <li class="nav-games">
+                <button id="games-button" aria-haspopup="true" aria-expanded="false">Games!</button>
+                <ul id="games-menu" role="menu" aria-hidden="true">
+                    <li role="none"><a role="menuitem" class="game-name" href="Davi_8A.html">8°A FORCA</a></li>
+                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/culinaria.html">8°B QUIZ CULINÁRIO</a></li>
+                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/vitoria_8c.html">8°C RITMOS ANCESTRAIS</a></li>
+                    <li role="none"><a role="menuitem" class="game-name" href="GAMES/almir_flap.html">7°B FLAP BIRD</a></li>
+                </ul>
+            </li>
             <li class="school-name">Colégio Campina da Lagoa</li>
         </ul>
     </nav>
@@ -67,10 +65,11 @@
             <h2 style="text-align:center; color:#f9a825; font-size:1.2rem; margin-bottom:0.5rem;">centro_oeste</h2>
             <div class="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active"><img src="assets/images/centro_oeste/co_1.jpeg" alt="centro_oeste 1"></div>
-                    <div class="carousel-item"><img src="assets/images/norte/ne3.jpeg" alt="centro_oeste 2"></div>
+                    <div class="carousel-item active"><img src="assets/images/centro_oeste/co1.jpeg" alt="centro_oeste 1"></div>
+                    <div class="carousel-item"><img src="assets/images/centro_oeste/co2.jpeg" alt="centro_oeste 2"></div>
                     <div class="carousel-item"><img src="assets/images/centro_oeste/co3.jpeg" alt="centro_oeste 3"></div>
                     <div class="carousel-item"><img src="assets/images/centro_oeste/co4.jpeg" alt="centro_oeste 4"></div>
+                    <div class="carousel-item"><img src="assets/images/centro_oeste/co5.jpeg" alt="centro_oeste 4"></div>
                 </div>
             </div>
             <!-- Sudeste -->
@@ -87,10 +86,10 @@
             <h2 style="text-align:center; color:#c62828; font-size:1.2rem; margin-bottom:0.5rem;">Sul</h2>
             <div class="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active"><img src="assets/images/sul/S1.jpeg" alt="Sul 1"></div>
-                    <div class="carousel-item"><img src="assets/images/sul/S2.jpeg" alt="Sul 2"></div>
-                    <div class="carousel-item"><img src="assets/images/sul/S3.jpeg" alt="Sul 3"></div>
-                    <div class="carousel-item"><img src="assets/images/sul/S4.jpeg" alt="Sul 4"></div>
+                    <div class="carousel-item active"><img src="assets/images/sul/nada1.jpeg" alt="Sul 1"></div>
+                    <div class="carousel-item"><img src="assets/images/sul/nada2.jpeg" alt="Sul 2"></div>
+                    <div class="carousel-item"><img src="assets/images/sul/nada3.jpeg" alt="Sul 3"></div>
+                    <div class="carousel-item"><img src="assets/images/sul/nada4.jpeg" alt="Sul 4"></div>
                 </div>
             </div>
         </div>
