@@ -85,6 +85,8 @@
 	}
 }
 
+/* (removido) estilos de cabeçalho fixo e bloco nome/turma */
+
 /* Ajuste para container ocupar largura total no mobile */
 
 .container {
@@ -140,6 +142,10 @@ img {
 	height: auto;
 	display: block;
 }
+
+/* (revert) remover abordagem estável de cabeçalho fixo na tabela */
+
+/* (revert) remover cabeçalho fixo da tabela */
 
 body {
 	min-height: 100vh;
@@ -1646,4 +1652,457 @@ nav ul {
 		padding: 1rem;
 	}
 
+}
+
+/* ===================== ÁREA DOS PROFESSORES - LOGIN ===================== */
+body.login-page {
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(135deg, var(--p-2) 0%, var(--p-1) 100%);
+	min-height: 100vh;
+}
+
+.login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+
+.login-box {
+	background: white;
+	padding: 2.5rem;
+	border-radius: 12px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	width: 100%;
+	max-width: 400px;
+}
+
+.login-box h1 {
+	text-align: center;
+	color: var(--p-1);
+	margin-bottom: 1.5rem;
+	font-size: 1.8rem;
+}
+
+.form-group {
+	margin-bottom: 1.5rem;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 0.5rem;
+	color: #555;
+	font-weight: 600;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 0.8rem;
+	border: 2px solid #ddd;
+	border-radius: 8px;
+	font-size: 1rem;
+	transition: border-color 0.3s;
+	box-sizing: border-box;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: var(--p-2);
+}
+
+.login-btn {
+	width: 100%;
+	padding: 0.8rem;
+	background: linear-gradient(135deg, var(--gold-2) 0%, var(--gold-1) 100%);
+	color: var(--text-gold);
+	border: none;
+	border-radius: 8px;
+	font-size: 1rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.login-btn:hover {
+	transform: translateY(-2px);
+}
+
+.login-btn:active {
+	transform: translateY(0);
+}
+
+.back-link {
+	text-align: center;
+	margin-top: 1.5rem;
+}
+
+.back-link a {
+	color: var(--p-2);
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.back-link a:hover {
+	text-decoration: underline;
+}
+
+.error-message {
+	color: #c62828;
+	text-align: center;
+	margin-bottom: 1rem;
+	display: none;
+}
+
+@media (max-width: 480px) {
+	.login-box {
+		padding: 2rem;
+		margin: 1rem;
+	}
+
+	.login-box h1 {
+		font-size: 1.5rem;
+	}
+}
+
+/* ===================== DASHBOARD PROFESSORES ===================== */
+.dashboard-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.dashboard-header {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 2rem;
+	flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+	padding: 0.8rem 1.5rem;
+	border: none;
+	border-radius: 8px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-size: 1rem;
+}
+
+.btn-primary {
+	background: linear-gradient(135deg, var(--gold-2) 0%, var(--gold-1) 100%);
+	color: var(--text-gold);
+	box-shadow: 0 4px 12px rgba(242, 179, 61, 0.3);
+}
+
+.btn-primary:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(242, 179, 61, 0.4);
+}
+
+.btn-secondary {
+	background: rgba(20, 115, 230, 0.1);
+	color: var(--p-2);
+	border: 2px solid var(--p-2);
+}
+
+.btn-secondary:hover {
+	background: rgba(20, 115, 230, 0.2);
+	transform: translateY(-2px);
+}
+
+.form-container {
+	background: white;
+	padding: 2rem;
+	border-radius: 12px;
+	margin-bottom: 2rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(20, 115, 230, 0.1);
+}
+
+.form-container h2 {
+	color: var(--p-2);
+	margin-top: 0;
+}
+
+.form-container .form-group {
+	margin-bottom: 1.5rem;
+}
+
+.form-container label {
+	display: block;
+	margin-bottom: 0.5rem;
+	color: var(--p-1);
+	font-weight: 600;
+}
+
+.form-container input,
+.form-container select {
+	width: 100%;
+	padding: 0.8rem;
+	border: 2px solid rgba(20, 115, 230, 0.2);
+	border-radius: 8px;
+	font-size: 1rem;
+	box-sizing: border-box;
+	transition: border-color 0.2s;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+	outline: none;
+	border-color: var(--p-2);
+	box-shadow: 0 0 0 3px rgba(20, 115, 230, 0.1);
+}
+
+.form-actions {
+	display: flex;
+	gap: 1rem;
+	margin-top: 1.5rem;
+}
+
+.modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+}
+
+.modal-content {
+	background: white;
+	border-radius: 12px;
+	width: 90%;
+	max-width: 600px;
+	max-height: 90vh;
+	overflow-y: auto;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.5rem;
+	border-bottom: 1px solid rgba(20, 115, 230, 0.1);
+}
+
+.modal-header h2 {
+	margin: 0;
+	color: var(--p-2);
+}
+
+.btn-close {
+	background: none;
+	border: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+	color: #666;
+}
+
+.btn-close:hover {
+	color: var(--p-1);
+}
+
+.modal-body {
+	padding: 1.5rem;
+}
+
+.modal-body p {
+	margin-bottom: 0.5rem;
+	color: #666;
+}
+
+.modal-body pre {
+	background: rgba(20, 115, 230, 0.05);
+	padding: 1rem;
+	border-radius: 8px;
+	overflow-x: auto;
+	font-size: 0.9rem;
+	border: 1px solid rgba(20, 115, 230, 0.1);
+}
+
+.modal-body textarea {
+	width: 100%;
+	padding: 1rem;
+	border: 2px solid rgba(20, 115, 230, 0.2);
+	border-radius: 8px;
+	font-family: 'Courier New', monospace;
+	resize: vertical;
+	box-sizing: border-box;
+}
+
+.modal-body textarea:focus {
+	outline: none;
+	border-color: var(--p-2);
+}
+
+.modal-footer {
+	padding: 1.5rem;
+	border-top: 1px solid rgba(20, 115, 230, 0.1);
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-end;
+}
+
+.message {
+	padding: 1rem;
+	border-radius: 8px;
+	margin-bottom: 1.5rem;
+	font-weight: 600;
+	animation: slideDown 0.3s ease;
+}
+
+.message.success {
+	background: rgba(13, 140, 57, 0.1);
+	color: #0D8C39;
+	border: 1px solid rgba(13, 140, 57, 0.3);
+}
+
+.message.error {
+	background: rgba(198, 40, 40, 0.1);
+	color: #c62828;
+	border: 1px solid rgba(198, 40, 40, 0.3);
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.table-container {
+	background: white;
+	padding: 2rem;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(20, 115, 230, 0.1);
+	margin-bottom: 2rem;
+}
+
+.table-container h2 {
+	color: var(--p-2);
+	margin-top: 0;
+}
+
+.table-filters {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+	flex-wrap: wrap;
+}
+
+.table-filters select,
+.table-filters input {
+	padding: 0.8rem;
+	border: 2px solid rgba(20, 115, 230, 0.2);
+	border-radius: 8px;
+	font-size: 1rem;
+	flex: 1;
+	min-width: 200px;
+	box-sizing: border-box;
+}
+
+.table-filters select:focus,
+.table-filters input:focus {
+	outline: none;
+	border-color: var(--p-2);
+	box-shadow: 0 0 0 3px rgba(20, 115, 230, 0.1);
+}
+
+#tabela-alunos {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 1rem;
+}
+
+#tabela-alunos thead {
+	background: linear-gradient(90deg, var(--p-2), var(--p-3));
+	color: white;
+}
+
+#tabela-alunos th,
+#tabela-alunos td {
+	padding: 1rem;
+	text-align: left;
+	border-bottom: 1px solid rgba(20, 115, 230, 0.1);
+}
+
+#tabela-alunos tbody tr {
+	transition: background 0.2s;
+}
+
+#tabela-alunos tbody tr:hover {
+	background: rgba(20, 115, 230, 0.05);
+}
+
+.turma-badge {
+	display: inline-block;
+	padding: 0.4rem 0.8rem;
+	background: rgba(242, 179, 61, 0.15);
+	color: var(--text-gold);
+	border-radius: 20px;
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.btn-delete {
+	padding: 0.5rem 1rem;
+	background: rgba(198, 40, 40, 0.1);
+	color: #c62828;
+	border: 1px solid #c62828;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.2s;
+}
+
+.btn-delete:hover {
+	background: #c62828;
+	color: white;
+	transform: translateY(-2px);
+}
+
+.msg-vazio {
+	text-align: center;
+	color: #999;
+	padding: 2rem;
+	font-style: italic;
+}
+
+.dashboard-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1.5rem;
+}
+
+.stat {
+	background: linear-gradient(135deg, var(--p-2), var(--p-3));
+	color: white;
+	padding: 2rem;
+	border-radius: 12px;
+	text-align: center;
+	box-shadow: 0 4px 12px rgba(20, 115, 230, 0.2);
+}
+
+.stat h3 {
+	font-size: 2.5rem;
+	margin: 0 0 0.5rem;
+}
+
+.stat p {
+	margin: 0;
+	font-size: 1rem;
+	opacity: 0.9;
+}
+
+.hidden {
+	display: none !important;
 }

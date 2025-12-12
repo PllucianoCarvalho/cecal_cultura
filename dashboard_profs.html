@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Área dos Professores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <nav aria-label="Navegação do Dashboard">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="school-name">Dashboard - Área dos Professores</li>
+            <li style="margin-left: auto;"><a href="#" id="logout-btn">Sair</a></li>
+        </ul>
+    </nav>
+    
+
+    <main class="dashboard-container">
+        <h1>Gerenciamento de Alunos</h1>
+        
+        <div class="dashboard-header">
+            <button id="btn-novo-aluno" class="btn-primary">+ Novo Aluno</button>
+            <button id="btn-inserir-massa" class="btn-secondary">📋 Inserir em Massa</button>
+            <button id="btn-exportar-csv" class="btn-secondary">⬇️ Exportar CSV</button>
+            <span id="gestao-only-badge" class="badge small hidden">Somente gestão</span>
+        </div>
+
+        <!-- Formulário Individual -->
+        <div id="form-individual" class="form-container hidden">
+            <h2>Adicionar Aluno</h2>
+            <form id="aluno-form">
+                <div class="form-group">
+                    <label for="nome">Nome do Aluno:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="turma">Turma:</label>
+                    <select id="turma" name="turma" required>
+                        <option value="">Selecione uma turma</option>
+                        <option value="6°A">6°A</option>
+                        <option value="6°B">6°B</option>
+                        <option value="6°C">6°C</option>
+                        <option value="7°A">7°A</option>
+                        <option value="7°B">7°B</option>
+                        <option value="7°C">7°B</option>
+                        <option value="8°A">8°A</option>
+                        <option value="8°B">8°B</option>
+                        <option value="8°C">8°C</option>
+                        <option value="9°A">9°A</option>
+                        <option value="9°B">9°B</option>
+                        <option value="1°A">1°A</option>
+                        <option value="1°B">1°B</option>
+                        <option value="2°A">2°A</option>
+                        <option value="2°B">2°B</option>
+                        <option value="3°A">3°A</option>
+                        <option value="3°B">3°B</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Adicionar</button>
+                    <button type="button" id="btn-cancelar-individual" class="btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal Inserção em Massa -->
+        <div id="modal-massa" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Inserção em Massa</h2>
+                    <button id="btn-fechar-modal" class="btn-close">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="turma-massa">Turma para todos os alunos:</label>
+                        <select id="turma-massa" required>
+                            <option value="">Selecione uma turma</option>
+                            <option value="6°A">6°A</option>
+                            <option value="6°B">6°B</option>
+                            <option value="7°A">7°A</option>
+                            <option value="7°B">7°B</option>
+                            <option value="8°A">8°A</option>
+                            <option value="8°B">8°B</option>
+                            <option value="8°C">8°C</option>
+                        </select>
+                    </div>
+                    <p>Cole os dados no formato numerado (um por linha):</p>
+                    <pre>1\tNOME COMPLETO
+2\tNOME COMPLETO
+3\tNOME COMPLETO</pre>
+                    <textarea id="textarea-massa" placeholder="Cole aqui os dados dos alunos..." rows="10"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-importar" class="btn-primary">Importar</button>
+                    <button id="btn-fechar-massa" class="btn-secondary">Fechar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagem de Sucesso -->
+        <div id="message" class="message hidden"></div>
+
+        <!-- Tabela de Alunos -->
+        <div class="table-container">
+            <h2>Alunos Registrados</h2>
+            <div class="table-filters">
+                <select id="filter-turma">
+                    <option value="">Todas as turmas</option>
+                    <option value="6°A">6°A</option>
+                    <option value="6°B">6°B</option>
+                    <option value="7°A">7°A</option>
+                    <option value="7°B">7°B</option>
+                    <option value="8°A">8°A</option>
+                    <option value="8°B">8°B</option>
+                    <option value="8°C">8°C</option>
+                </select>
+                <input type="text" id="search-aluno" placeholder="Buscar por nome...">
+                <div class="nota-global">
+                    <label for="nota-atribuida-global">Nota atribuída (geral):</label>
+                    <input type="number" id="nota-atribuida-global" min="0" max="100" step="1">
+                    <span id="nota-atribuida-view" class="nota-view hidden"></span>
+                </div>
+            </div>
+            <table id="tabela-alunos">
+                <thead>
+                    <tr>
+                        <th>Nome / Turma</th>
+                        <th>Participação</th>
+                        <th>Desempenho</th>
+                        <th>Comportamento</th>
+                        <th>Nota</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-alunos">
+                    <!-- Preenchido por JavaScript -->
+                </tbody>
+            </table>
+            <p id="msg-vazio" class="msg-vazio">Nenhum aluno registrado ainda.</p>
+        </div>
+
+        <!-- Resumo -->
+        <div class="dashboard-stats">
+            <div class="stat">
+                <h3 id="total-alunos">0</h3>
+                <p>Total de Alunos</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Colégio Estadual Campina da Lagoa – Educação em Tempo Integral<br>
+            © 2025 Secretaria de Estado da Educação do Paraná – Todos os direitos reservados</p>
+    </footer>
+
+    <script src="assets/js/dashboard.js" defer></script>
+</body>
+</html>
